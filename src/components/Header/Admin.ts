@@ -2,7 +2,8 @@ const HeaderAdmin = {
 	render: () => {
 		return (
             /*html*/`
-                <div class="flex bg-pkBlue justify-between items-center px-[30px]">
+                <div class="fixed top-0 w-full">
+					<div class="flex bg-pkBlue justify-between items-center px-[30px]">
 					<img class="max-w-[120px] w-full" src="https://cdn-img-v2.webbnc.net/uploadv2/web/82/8269/news/2020/11/19/11/03/1605753605_23578.png
 					">
 					<div class="max-w-[600px] w-full flex items-center justify-between">
@@ -13,6 +14,7 @@ const HeaderAdmin = {
 						<h2 class="capitalize text-[20px] leading-[30px] font-medium text-[#fff]">
 							xin chào abc
 						</h2>
+					</div>
 					</div>
 				</div>
             `
