@@ -12,6 +12,7 @@ const homePage = {
         const categorys:ICategory[] = CategoryData.data
         const ProductsData =await ProductsGetAll()
         const products:ListProducts[] = ProductsData.data
+        console.log(products);
         
         return`
          ${HeaderUser.render()}
