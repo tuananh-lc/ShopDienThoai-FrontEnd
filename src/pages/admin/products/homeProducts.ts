@@ -15,9 +15,10 @@ const homeProducts = {
             return a.name.localeCompare(b.name)
         })
         const categorys: ICategory[] = categoryData.data
-
+        console.log(products);
+        
         const cate = categorys.map(item => `
-                <option value="${item.id}" id="optionCate" class="capitalize">${item.name}</option>
+                <option value="${item._id}" id="optionCate" class="capitalize">${item.name}</option>
             `).join("")
 
         return `
@@ -82,7 +83,7 @@ const homeProducts = {
                         ${products.map(item => `
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                                     <th scope="row" class="text-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        ${item.id}
+                                        ${item._id}
                                     </th>
                                     <td class="py-4 px-6">
                                         ${item.name}
@@ -105,13 +106,13 @@ const homeProducts = {
                                         </button>
                                     </td>
                                     <td class="py-4 px-6 flex justify-between items-center leading-[190px]">
-                                        <a href="/admin/products/${item.id}/updateproducts" data-navigo class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
+                                        <a href="/admin/products/${item._id}/updateproducts" data-navigo class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
                                             <i title="edit" class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                        <a href="/admin/products/${item.id}" class="mx-[10px] text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
+                                        <a href="/admin/products/${item._id}" class="mx-[10px] text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
                                             <i title="Eye" class="fa-solid fa-eye"></i>
                                         </a>
-                                        <button data-id="${item.id}" data-navigo id="btn-remove" class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
+                                        <button data-id="${item._id}" data-navigo id="btn-remove" class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
                                             <i title="Remove" class="fa-solid fa-trash"></i>
                                         </button>
                                     </td>

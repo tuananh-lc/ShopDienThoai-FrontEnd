@@ -1,5 +1,5 @@
 export interface ListProducts {
-    id:number,
+    _id:string,
     name:string,
     price:number,
     sale:number,

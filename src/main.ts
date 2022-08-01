@@ -16,11 +16,11 @@ import UpdateCategories from './pages/admin/categories/updateCategory'
 // ********************
 const router = new Navigo('/', {linksSelector: "a"})
 interface Ipage {
-  render: (id?:number) => string
-  afterRender(id?:number) : any
+  render: (id?:string) => string
+  afterRender(id?:string) : any
 }
 const app = document.getElementById('app')
-const print =async (page:Ipage, id?:number) => {
+const print =async (page:Ipage, id?:string) => {
   if(app){
     app.innerHTML =await page.render(id)
   }
@@ -31,7 +31,7 @@ router.on({
   // Client
   "/": () => print(homePage),
   "/detailproducts/:id": (id:any) => {
-    const ID = +id.data.id    
+    const ID = id.data.id    
     print(DetailProducts, ID)
   },
   "/cartproducts": () => print(cartProducts),
@@ -44,7 +44,7 @@ router.on({
     print(createProducts)
   },
   "admin/products/:id/updateproducts": (id:any) => {
-    const paramsId = +id.data.id
+    const paramsId = id.data.id
     print(updateProducts, paramsId)
   },
   "admin/category": () => print(HomeCategories),
