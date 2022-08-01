@@ -73,7 +73,7 @@ const homePage = {
                     
                     ${products.map((product:any) => `
 
-                                <a href="/detailproducts/${product.id}" class="group hover:shadow-lg px-[15px] py-[25px] rounded-md">
+                                <a href="/detailproducts/${product._id}" class="group hover:shadow-lg px-[15px] py-[25px] rounded-md">
                                 <div class="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
                                     <img src="${product.image}" alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="w-full h-full object-center object-cover group-hover:opacity-75">
                                 </div>

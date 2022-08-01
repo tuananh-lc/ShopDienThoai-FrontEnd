@@ -6,7 +6,7 @@ import { ListProducts } from "../../../Interface/IProducts"
 import { ICategory } from "../../../Interface/ICategorys"
 import { CategoryGetAll } from "../../../api/categorys"
 const updateProducts = {
-    async render(id: any) {
+    async render(id: string) {
         // console.log(typeof id);
 
         const ProductData = await ProductsGet(id)
@@ -15,7 +15,7 @@ const updateProducts = {
         const categoryData = await CategoryGetAll()
         const category: ICategory[] = categoryData.data
         const cate = category.map(item => `
-             <option value="${item.id}" class="capitalize">${item.name}</option>
+             <option value="${item._id}" class="capitalize">${item.name}</option>
         `).join("")
         // console.log(cate);
 

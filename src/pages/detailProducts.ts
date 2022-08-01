@@ -4,7 +4,7 @@ import HeaderUser from "../components/Header/User"
 import { ListProducts } from "../Interface/IProducts"
 
 const DetailProducts = {
-    async render(id:number) {
+    async render(id:string) {
         const productsData = await ProductsGet(id)
         const product:ListProducts = productsData.data
     

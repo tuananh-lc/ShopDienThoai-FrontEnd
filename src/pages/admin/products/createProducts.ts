@@ -12,7 +12,7 @@ const createProducts = {
         const categoryData = await CategoryGetAll()
         const category:ICategory[] = categoryData.data
         const cate = category.map(item =>`
-             <option value="${item.id}" class="capitalize">${item.name}</option>
+             <option value="${item._id}" class="capitalize">${item.name}</option>
         `).join("")
         return`
         ${HeaderAdmin.render()}
