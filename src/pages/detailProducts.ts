@@ -34,92 +34,23 @@ const DetailProducts = {
                         />
                         </div>
                         <!--  -->
-                        <div class="mx-[20px] md:mx-0 md:ml-[20px] md:max-w-[475px]">
+                        <div class="mx-[20px] md:mx-0 md:ml-[20px] md:max-w-[475px] w-full">
                         <div class="mt-[20px] md:mt-0">
                             <span class="text-[18px] font-bold text-red-500">${product.price}₫</span>
                             <span
                             class="text-[16px] text-[#4d4d4d] font-medium line-through ml-[10px]"
                             >${product.sale}</span
                             >
+                            <span class="bg-red-500 ml-[10px] py-[5px] px-[15px] text-[14px] text-white rounded-md capitalize">
+                                giảm 20%
+                            </span>
                         </div>
                         <div class="mt-[15px]">
                             <h3 class="capitalize text-[16px] text-[#444] font-medium">
-                            chọn màu để có hàng
+                                số lượng sản phẩm
                             </h3>
-                            <div class="flex flex-wrap">
-                            <div
-                                class="flex justify-between items-center max-w-[150px] border-[1px] border-[#636363] px-[10px] py-[7px] mt-[15px] mr-[15px] rounded-md hover:bg-[#ececec] hover:border-[#ececec] transition delay-150 duration-300 ease-in-out"
-                            >
-                                <div>
-                                <img
-                                    src="${product.image}"
-                                    alt=""
-                                />
-                                </div>
-                                <div>
-                                <h4 class="capitalize text-[#333] text-[13px]">xanh lá</h4>
-                                <span>12.999.999đ</span>
-                                </div>
-                            </div>
-
-                            <div
-                                class="flex justify-between items-center max-w-[150px] border-[1px] border-[#636363] px-[10px] py-[7px] mt-[15px] mr-[15px] rounded-md hover:bg-[#ececec] hover:border-[#ececec] transition delay-150 duration-300 ease-in-out"
-                            >
-                                <div>
-                                <img
-                                    src="https://cdn2.cellphones.com.vn/35x/media/catalog/product/i/p/iphone-11_6__1.jpg"
-                                    alt=""
-                                />
-                                </div>
-                                <div>
-                                <h4 class="capitalize text-[#333] text-[13px]">xanh lá</h4>
-                                <span>12.999.999đ</span>
-                                </div>
-                            </div>
-
-                            <div
-                                class="flex justify-between items-center max-w-[150px] border-[1px] border-[#636363] px-[10px] py-[7px] mt-[15px] mr-[15px] rounded-md hover:bg-[#ececec] hover:border-[#ececec] transition delay-150 duration-300 ease-in-out"
-                            >
-                                <div>
-                                <img
-                                    src="https://cdn2.cellphones.com.vn/35x/media/catalog/product/i/p/iphone-11_6__1.jpg"
-                                    alt=""
-                                />
-                                </div>
-                                <div>
-                                <h4 class="capitalize text-[#333] text-[13px]">xanh lá</h4>
-                                <span>12.999.999đ</span>
-                                </div>
-                            </div>
-
-                            <div
-                                class="flex justify-between items-center max-w-[150px] border-[1px] border-[#636363] px-[10px] py-[7px] mt-[15px] mr-[15px] rounded-md hover:bg-[#ececec] hover:border-[#ececec] transition delay-150 duration-300 ease-in-out"
-                            >
-                                <div>
-                                <img
-                                    src="https://cdn2.cellphones.com.vn/35x/media/catalog/product/i/p/iphone-11_6__1.jpg"
-                                    alt=""
-                                />
-                                </div>
-                                <div>
-                                <h4 class="capitalize text-[#333] text-[13px]">xanh lá</h4>
-                                <span>12.999.999đ</span>
-                                </div>
-                            </div>
-                            <div
-                                class="flex justify-between items-center max-w-[150px] border-[1px] border-[#636363] px-[10px] py-[7px] mt-[15px] mr-[15px] rounded-md hover:bg-[#ececec] hover:border-[#ececec] transition delay-150 duration-300 ease-in-out"
-                            >
-                                <div>
-                                <img
-                                    src="https://cdn2.cellphones.com.vn/35x/media/catalog/product/i/p/iphone-11_6__1.jpg"
-                                    alt=""
-                                />
-                                </div>
-                                <div>
-                                <h4 class="capitalize text-[#333] text-[13px]">xanh lá</h4>
-                                <span>12.999.999đ</span>
-                                </div>
-                            </div>
+                            <div class="flex flex-wrap mt-[10px]">
+                                <input type="number" class="outline-none text-[14px] text-[#333]" placeholder="1">
                             <!--  -->
                             </div>
 

@@ -80,10 +80,10 @@ const homeProducts = {
                         </thead>
                         <tbody id="showCategory">
                             
-                        ${products.map(item => `
+                        ${products.map((item, index) => `
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                                     <th scope="row" class="text-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        ${item._id}
+                                        ${index + 1} 
                                     </th>
                                     <td class="py-4 px-6">
                                         ${item.name}
