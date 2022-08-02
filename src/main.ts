@@ -36,20 +36,20 @@ router.on({
   },
   "/cartproducts": () => print(cartProducts),
   //Admin
-  "admin/": () => print(dashboard),
-  "admin/products": () => {
+  "/admin/": () => print(dashboard),
+  "/admin/products": () => {
     print(homeProducts)
   },
-  "admin/createproducts": () => {
+  "/admin/createproducts": () => {
     print(createProducts)
   },
-  "admin/products/:id/updateproducts": (id:any) => {
+  "/admin/products/:id/updateproducts": (id:any) => {
     const paramsId = id.data.id
     print(updateProducts, paramsId)
   },
-  "admin/category": () => print(HomeCategories),
-  "admin/createcategory": () => print(CreateCategories),
-  "admin/category/:id/updatecategory": () => print(UpdateCategories),
+  "/admin/category": () => print(HomeCategories),
+  "/admin/createcategory": () => print(CreateCategories),
+  "/admin/category/:id/updatecategory": () => print(UpdateCategories),
   // Lognin & Signin
   "/signin": () => print(Signin),
   "/signup": () => print(Signup)

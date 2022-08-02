@@ -9,9 +9,9 @@ const dashboard = {
     async render() {
         const productsData = await ProductsGetAll()
         const products= productsData.data
-        const usersData = await UsersGetAll()
-        const Users = usersData.data
-        
+        // const usersData = await UsersGetAll()
+        // const Users = usersData.data
+        // const htmlUsers= Users.length
         return`
             ${HeaderAdmin.render()}
 
@@ -28,7 +28,7 @@ const dashboard = {
                                 <a class="inline-block w-full" href="#">
                                     <div class="mt-[10px] mr-[30px]">
                                         <p class="uppercase text-[20px] text-[#999999] font-bold">tài khoản</p> 
-                                        <h3 class="capitalize mt-[5px] text-[20px] text-[#333] font-medium">${Users.length} user</h3>
+                                        <h3 class="capitalize mt-[5px] text-[20px] text-[#333] font-medium"> user</h3>
                                     </div>
                                 </a>
                             </div>
