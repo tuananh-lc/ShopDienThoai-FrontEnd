@@ -1,3 +1,4 @@
+import { CategoryGetOne } from "../api/categorys"
 import { ProductsGet, ProductsGetOne } from "../api/products"
 import Foodter from "../components/footer/footer"
 import HeaderUser from "../components/Header/User"
@@ -8,9 +9,12 @@ const DetailProducts = {
     async render(id:string) {
         const productsData = await ProductsGet(id)
         const product:ListProducts = productsData.data
-    
         console.log(product);
         
+        const idCategory = product.categoryId;
+        // console.log(idCategory);
+        const similarProduct = await CategoryGetOne(idCategory);
+        // console.log(similarProduct.data.products);
         return`
             ${HeaderUser.render()}
 
@@ -37,10 +41,10 @@ const DetailProducts = {
                         <!--  -->
                         <div class="mx-[20px] md:mx-0 md:ml-[20px] md:max-w-[475px] w-full">
                         <div class="mt-[20px] md:mt-0">
-                            <span class="text-[18px] font-bold text-red-500">${product.price}₫</span>
+                            <span class="text-[18px] font-bold text-red-500">${product.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span>
                             <span
                             class="text-[16px] text-[#4d4d4d] font-medium line-through ml-[10px]"
-                            >${product.sale}</span
+                            >${product.sale.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span
                             >
                             <span class="bg-red-500 ml-[10px] py-[5px] px-[15px] text-[14px] text-white rounded-md capitalize">
                                 giảm 20%
@@ -64,7 +68,7 @@ const DetailProducts = {
                             <div>
                                 <ul>
                                     <li class="text-[#4a4a4a] text-[12px] ml-[20px]">
-                                        ${product.descriptionSort}
+                                        ${product.descriptionShort}
                                     </li>
                                 </ul>
                             </div>
@@ -162,33 +166,37 @@ const DetailProducts = {
                         </h3>
                         </div>
                         <div>
+                        
                         <div class="overflow-hidden flex items-start">
-                            <div class="max-w-[200px] mr-[20px]">
-                            <a
-                                href="#"
-                                class="group hover:shadow-lg px-[15px] py-[25px] rounded-md"
-                            >
-                                <div
-                                class="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8"
+                            ${similarProduct.data.products.map((item:any)=>`
+                                <div class="max-w-[200px] mr-[20px]">
+                                <a
+                                    href="#"
+                                    class="group hover:shadow-lg px-[15px] py-[25px] rounded-md"
                                 >
-                                <img
-                                    src="https://cdn2.cellphones.com.vn/358x/media/catalog/product/i/p/iphone_13-_pro-5_4.jpg"
-                                    alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
-                                    class="w-full h-full object-center object-cover group-hover:opacity-75"
-                                />
+                                    <div
+                                    class="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8"
+                                    >
+                                    <img
+                                        src="${item.image}"
+                                        alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
+                                        class="w-full h-full object-center object-cover group-hover:opacity-75"
+                                    />
+                                    </div>
+                                    <div class="pr-[10px]">
+                                    <h3 class="mt-4 text-sm text-gray-700 capitalize">
+                                    ${item.name}
+                                    </h3>
+                                    <div class="mt-[10px] flex justify-start items-center">
+                                        <p class="text-red-500">${item.sale.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</p>
+                                        <p class="text-gray-500 ml-2 line-through">${item.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</p>
+                                    </div>
+                                    </div>
+                                </a>
                                 </div>
-                                <div class="pr-[10px]">
-                                <h3 class="mt-4 text-sm text-gray-700 capitalize">
-                                    iPhone 13 Pro Max 128GB | Chính hãng VN/A
-                                </h3>
-                                <div class="mt-[10px] flex justify-start items-center">
-                                    <p class="text-red-500">10.790.000 ₫</p>
-                                    <p class="text-gray-500 ml-2 line-through">18.790.000 ₫</p>
-                                </div>
-                                </div>
-                            </a>
-                            </div>
+                            `).join("")}
                         </div>
+                        
                         </div>
                     </div>
                     </section>
