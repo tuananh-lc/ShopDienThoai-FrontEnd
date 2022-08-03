@@ -159,9 +159,9 @@ const DetailProducts = {
                         
                         <div class="overflow-hidden flex items-start">
                             ${similarProduct.data.products.map((item:any)=>`
-                                <div class="max-w-[200px] mr-[20px]">
+                                <div class="max-w-[200px] mr-[60px]">
                                 <a
-                                    href="#"
+                                    href="/detailproducts/${item._id}"
                                     class="group hover:shadow-lg px-[15px] py-[25px] rounded-md"
                                 >
                                     <div
