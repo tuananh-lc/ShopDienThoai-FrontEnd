@@ -15,6 +15,8 @@ const DetailProducts = {
         // console.log(idCategory);
         const similarProduct = await CategoryGetOne(idCategory);
         // console.log(similarProduct.data.products);
+        const total = ((product.price - product.sale) / product.price * 100).toFixed(0)
+        console.log(total);
         return`
             ${HeaderUser.render()}
 
@@ -47,7 +49,7 @@ const DetailProducts = {
                             >${product.sale.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span
                             >
                             <span class="bg-red-500 ml-[10px] py-[5px] px-[15px] text-[14px] text-white rounded-md capitalize">
-                                giảm 20%
+                                giảm ${total}%
                             </span>
                         </div>
                         <div class="mt-[15px]">

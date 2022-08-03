@@ -100,7 +100,7 @@ const homePage = {
                                         class="max-w-[90px] w-full relative"
                                     >
                                     <span class="absolute top-0 left-[10%] text-white font-normal capitalize">
-                                        giảm 20%
+                                        giảm ${((product.price - product.sale) / product.price * 100).toFixed(0)}%
                                     </span>
                                 </div>
                                 </a>
