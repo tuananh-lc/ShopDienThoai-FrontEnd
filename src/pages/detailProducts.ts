@@ -197,8 +197,16 @@ const DetailProducts = {
                       <h3 class="uppercase text-[20px] font-bold text-[#515151]">
                         thông tin chi tiết sản phẩm
                       </h3>
-                      <div class="mt-[20px]">
-                        ${product.descriptionLong}
+                      <div class="mt-[20px]" id="blockChitiet">
+                        <div>
+                            ${product.descriptionShort}
+                        </div>
+                        <div class="hidden" id="descLong">
+                            ${product.descriptionLong}
+                        </div>
+                        <div class="mt-[20px]">
+                            <span class="block text-center capitalize text-[16px] text-[#333] hover:text-red-500 transition ease-in-out delay-150" id="btn-blockDesc">xem thêm <i class="fa-solid fa-angles-down"></i></span>
+                        </div>
                       </div>
                     </div>
                   </section>
@@ -237,12 +245,22 @@ const DetailProducts = {
                 price:product.price,
                 sale:product.sale,
                 image:product.image,
-                outstanding:product.outstanding,
+                feature:product.feature,
                 amount:parseInt(amount)
             }
                 
         })
+
+    $$("#btn-blockDesc").addEventListener('click', function() {
+        $$("#descLong").classList.remove("hidden")
+        this.classList.add("hidden")
+    })
+    $$("#descLong").addEventListener('click', function() {
+        this.classList.add("hidden")
+        $$("#btn-blockDesc").classList.remove("hidden")
+    })
     }
+
 }
 
 export default DetailProducts
