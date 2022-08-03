@@ -13,6 +13,7 @@ import cartProducts from './pages/cartProducts'
 import HomeCategories from './pages/admin/categories/homeCategory'
 import CreateCategories from './pages/admin/categories/creatCategory'
 import UpdateCategories from './pages/admin/categories/updateCategory'
+import HeaderUser from './components/Header/User'
 // ********************
 const router = new Navigo('/', {linksSelector: "a"})
 interface Ipage {
@@ -25,6 +26,7 @@ const print =async (page:Ipage, id?:string) => {
     app.innerHTML =await page.render(id)
   }
   if(page.afterRender) await page.afterRender(id)
+  if(HeaderUser.afterRender) HeaderUser.afterRender()
 }
 
 router.on({

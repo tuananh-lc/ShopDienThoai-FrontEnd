@@ -1,7 +1,8 @@
-import { ProductsGet } from "../api/products"
+import { ProductsGet, ProductsGetOne } from "../api/products"
 import Foodter from "../components/footer/footer"
 import HeaderUser from "../components/Header/User"
 import { ListProducts } from "../Interface/IProducts"
+import { $$ } from "./utilities/utiliti"
 
 const DetailProducts = {
     async render(id:string) {
@@ -49,9 +50,11 @@ const DetailProducts = {
                             <h3 class="capitalize text-[16px] text-[#444] font-medium">
                                 số lượng sản phẩm
                             </h3>
-                            <div class="flex flex-wrap mt-[10px]">
-                                <input type="number" class="outline-none text-[14px] text-[#333]" placeholder="1">
-                            <!--  -->
+                            <div class="flex justify-between mt-[10px] w-full max-w-[180px]">
+                                <span class="text-[20px] border-[1px] border-[#505050] w-full border-r-[0px] text-center cursor-pointer outline-none" id="cong"> + </span>
+                                <input type="number" class="outline-none text-[14px] text-[#333] max-w-[90px] text-center pl-[25px]" id="amount" disabled>
+                                <span class="text-[20px] border-[1px] border-[#505050] w-full border-l-[0px] text-center cursor-pointer outline-none" id="tru"> - </span>
+                                <!--  -->
                             </div>
 
                             <div
@@ -79,7 +82,7 @@ const DetailProducts = {
                                 <div
                                 class="border-red-600 border-[1px] py-[8px] px-[10px] rounded-lg hover:bg-red-100 cursor-pointer"
                                 >
-                                <button>
+                                <button id="btn-tocart">
                                     <i class="fa-solid fa-cart-plus text-red-600"></i>
                                     <p class="capitalize text-red-600">thêm vào giỏ</p>
                                 </button>
@@ -202,8 +205,43 @@ const DetailProducts = {
                   ${Foodter.render()}
         `
     },
-    afterRender(){
-        
+    async afterRender(id:String){
+        const productData = await ProductsGetOne(id)
+        const product:ListProducts = productData.data
+              
+        $$("#amount").value = 1
+        $$("#cong").addEventListener("click", function() {
+            const numberString = $$("#amount").value
+            let number:number = parseInt(numberString)
+            $$("#amount").value = number + 1
+            if($$("#amount").value > 12){
+                $$("#amount").value = 12
+                confirm('Tối đa 12 sản phẩm')
+            }
+        })
+        $$("#tru").addEventListener("click", function() {
+            $$("#amount").value -= 1
+            if($$("#amount").value < 1){
+                $$("#amount").value = 1
+            }
+        })
+
+        $$("#btn-tocart").addEventListener("click", function(e:any) {
+            e.preventDefault()
+            const amount = $$("#amount").value
+            parseInt(amount)
+            
+            const productCart = {
+                _id:product._id,
+                name:product.name,
+                price:product.price,
+                sale:product.sale,
+                image:product.image,
+                outstanding:product.outstanding,
+                amount:parseInt(amount)
+            }
+                
+        })
     }
 }
 

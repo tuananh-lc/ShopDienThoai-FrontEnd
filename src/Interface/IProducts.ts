@@ -4,9 +4,9 @@ export interface ListProducts {
     price:number,
     sale:number,
     image:string,
-    descriptionSort:string,
+    descriptionShort:string,
     descriptionLong:string,
-    outstanding:string,
+    feature:string,
     category:{
         id:number,
         name:string
