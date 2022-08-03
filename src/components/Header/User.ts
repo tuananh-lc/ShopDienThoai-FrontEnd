@@ -1,3 +1,6 @@
+import { search } from "../../api/search"
+import { $$ } from "../../pages/utilities/utiliti"
+
 const HeaderUser = {
     render() {
         return `
@@ -26,19 +29,25 @@ const HeaderUser = {
                     </div>
                 </div>
                 <div
-                    class="bg-[#fff] max-w-[360px] md:max-w-[450px] w-full"
+                    class="relative bg-[#fff] max-w-[360px] md:max-w-[450px] w-full"
                 >
                      
-                    <form class="flex items-center">   
+                    <form class="flex items-center" id="form-search">   
                     <label for="voice-search" class="sr-only">Search</label>
                     <div class="relative w-full">
-                        <input type="text" id="voice-search" class="w-full text-gray-900 text-sm focus:outline-none block w-full pl-10 p-2.5 border-none dark:placeholder-gray-400 dark:text-gray-700" placeholder="Search..." required="">
+                        <input type="text" id="voice-search" class="w-full text-gray-900 text-sm focus:outline-none block w-full pl-10 p-2.5 border-none dark:placeholder-gray-400 dark:text-gray-700" placeholder="Search...">
                     </div>
-                    <button type="submit" class="text-center transition delay-150 duration-300 ease-in-out py-2.5 px-3 text-sm font-medium hoevr:bg-blue-700  border-non hover:bg-blue-800 text-[#333] hover:dark:bg-blue-600 hover:text-white dark:focus:ring-blue-800">
+                    <button type="submit" class="text-center transition delay-150 duration-300 ease-in-out py-2.5 px-3 text-sm font-medium hoevr:bg-blue-700  border-non hover:bg-blue-800 text-[#333] hover:dark:bg-blue-600 hover:text-white dark:focus:ring-blue-800"
+                    id="btn-search"
+                    >
                         <svg aria-hidden="true" class="mx-[15px] w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </button>
                     </form>
+                    <div class="absolute top-0 left-0 mt-[40px] z-40 bg-white max-w-[450px] w-full" id="divSearch">
+                        
 
+                        
+                    </div>
                 </div>
                 <div class="md:flex">
                     <div class="hidden md:block md:flex">
@@ -108,6 +117,42 @@ const HeaderUser = {
                 </section>
             </header>
         `
+    },
+    afterRender() {
+        $$("#form-search").addEventListener('submit',async function(e:any) {
+            e.preventDefault()
+            const searchValue = $$("#voice-search").value
+            if(searchValue.trim()){
+                const { data } = await search(searchValue.trim())
+                console.log("search",data);
+                if(data){
+                    const result = data.map((item:any) =>`
+                        <a href="/detailproducts/${item._id}">
+                            <div class="flex justify-evenly items-center shadow-sm hover:shadow-lg px-[30px] py-[20px] my-[10px]">
+                            <div>
+                                <img src="${item.image}"
+                                class="max-w-[120px]"
+                                >
+                            </div>
+                                <div>
+                                    <h3 class="text-[#222] text-[18px] font-medium capitalize">${item.name}</h3>
+                                    <div>
+                                        <span class="text-red-500">${item.price}</span>
+                                        <span class="text-[#555] line-through ml-[5px]">${item.sale}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    `).join("")
+                    $$("#divSearch").innerHTML = result
+                }
+                               
+            }else{
+                $$("#divSearch").innerHTML = null
+            }
+           
+        })
+        
     }
 }
 

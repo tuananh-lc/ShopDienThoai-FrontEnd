@@ -12,7 +12,7 @@ const homePage = {
         const categorys:ICategory[] = CategoryData.data
         const ProductsData =await ProductsGetAll()
         const products:ListProducts[] = ProductsData.data
-        console.log(products);
+        // console.log(categorys);
         
         return`
          ${HeaderUser.render()}
@@ -22,7 +22,7 @@ const homePage = {
                 ${categorys.map((category:any) => `
                         <li class="mt-[15px] hover:text-red-600 transition ease-in-out delay-150 text-[#727272]">
                                 <i class="${category.icon}"></i>
-                                <a href="#!" class="ml-[10px]">${category.name}</a>
+                                <button data-id="${category._id}" id="btn-cate" class="ml-[10px]">${category.name}</button>
                         </li>
                 `).join("")}
                     
@@ -84,7 +84,7 @@ const homePage = {
                                         <p class="text-gray-500 ml-2 line-through">${product.sale}₫</p>
                                     </div>
                                     <div class="bg-[#F3F4F6] p-[10px] mt-3">
-                                        <span class="text-[12px] capitalize">${product.outstanding}</span>
+                                        <span class="text-[12px] capitalize">${product.descriptionShort}</span>
                                     </div>
                                     <div class="mt-3">
                                         <i class="fa-solid fa-star text-[#f59e0b]"></i>
@@ -114,7 +114,9 @@ const homePage = {
         `
     },
     afterRender() {
-        
+        // $$("#btn-cate").addEventListener('click', function() {
+            
+        // })   
         
     }
 }
