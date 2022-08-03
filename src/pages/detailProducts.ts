@@ -4,6 +4,9 @@ import Foodter from "../components/footer/footer"
 import HeaderUser from "../components/Header/User"
 import { ListProducts } from "../Interface/IProducts"
 import { $$ } from "./utilities/utiliti"
+import { AddressGetOne, AddressGetAll } from "../api/address"
+import { IAddress } from "../Interface/IAddress"
+
 
 const DetailProducts = {
     async render(id:string) {
@@ -11,13 +14,20 @@ const DetailProducts = {
         const product:ListProducts = productsData.data
         console.log(product);
         
+        const addressData = await AddressGetAll()
+        const address:IAddress = addressData.data
+        const htmladdress = address.map(item => `
+              <option value="${item._id}">${item.name}</option>
+        `)
+        // console.log(address);
+
         const idCategory = product.categoryId;
         // console.log(idCategory);
         const similarProduct = await CategoryGetOne(idCategory);
         // console.log(similarProduct.data.products);
         const total = ((product.price - product.sale) / product.price * 100).toFixed(0)
         console.log(total);
-        return`
+        return /*html*/`
             ${HeaderUser.render()}
 
             <section class="max-w-[1240px] m-auto">
@@ -119,42 +129,20 @@ const DetailProducts = {
                         </div>
                         <!--  -->
                         <div class="md:max-w-[400px] w-full px-[20px] mt-[20px]">
-                        <select class="w-full capitalize py-[10px] pl-[20px] rounded-lg">
-                            <option value="">miền trung</option>
-                            <option value="">miền nam</option>
-                            <option value="">miền bắc</option>
+                        <select id="addressdetail"  name="addressdetail" class="w-full capitalize py-[10px] pl-[20px] rounded-lg">
+                            <option value="">chọn miền dưới đây</option>
+                            ${htmladdress}
                         </select>
 
                         <div class="mt-[10px]">
                             <h3 class="capitalize text-[#777] text-[16px] font-medium">
-                            có 3 cửa hàng
+                            có những cửa hàng
                             </h3>
-                            <div class="border-[1px] border-[#777] rounded-lg mt-[5px]">
-                            <div
-                                class="mt-[15px] flex items-center p-[20px] md:p-[5px] md:justify-between"
-                            >
-                                <a
-                                href="#!"
-                                class="hover:underline text-red-600 inline-block text-[14px] text-center"
-                                ><i class="fa-solid fa-phone"></i> 190008198</a
-                                >
-                                <span class="text-[13px] ml-[5px]"
-                                >369 Nguyễn Văn Linh, Thạc Gián, Thanh Khê, Đà Nẵng
-                                </span>
+
+                            <div class="px-[25px] pb-[10px] border-[1px] border-[#777] rounded-lg mt-[5px]">
+                            <div id="showAddress"></div>
                             </div>
-                            <div
-                                class="mt-[15px] flex items-center p-[20px] md:p-[5px] md:justify-between"
-                            >
-                                <a
-                                href="#!"
-                                class="hover:underline text-red-600 inline-block text-[14px] text-center"
-                                ><i class="fa-solid fa-phone"></i> 190008198</a
-                                >
-                                <span class="text-[13px] ml-[5px]"
-                                >369 Nguyễn Văn Linh, Thạc Gián, Thanh Khê, Đà Nẵng
-                                </span>
-                            </div>
-                            </div>
+                            
                         </div>
                         </div>
                     </div>
@@ -247,11 +235,40 @@ const DetailProducts = {
                 price:product.price,
                 sale:product.sale,
                 image:product.image,
-                outstanding:product.outstanding,
+                outstanding:product.feature,
                 amount:parseInt(amount)
             }
                 
         })
+
+        const showAddress = $$("#showAddress")
+    
+        $$('#addressdetail')?.addEventListener('change',async function () {
+       
+           const idData =  this.value
+           const resultData = await AddressGetOne(idData)
+           const htmlsaddressdetail = resultData.data.detailAdd
+           console.log(htmlsaddressdetail);
+           
+               const result = htmlsaddressdetail.map((item:any) => /*html*/`
+               
+               <div
+                   class="mt-[15px] flex items-center p-[20px] md:p-[5px] md:justify-between"
+               >
+                   <a
+                   href="#!"
+                   class="hover:underline text-red-600 inline-block text-[14px] text-center"
+                   ><i class="fa-solid fa-phone"></i> ${item.phoneNumber}</a
+                   >
+                   <span class="text-[13px] ml-[5px]"
+                   > ${item.name}
+                   </span>
+               </div>
+              
+             
+               `).join("")
+               showAddress.innerHTML = result
+           })
     }
 }
 
