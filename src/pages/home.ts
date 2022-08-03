@@ -8,18 +8,18 @@ import { $$ } from "./utilities/utiliti";
 
 const homePage = {
     async render() {
-        const CategoryData =await CategoryGetAll()
-        const categorys:ICategory[] = CategoryData.data
-        const ProductsData =await ProductsGetAll()
-        const products:ListProducts[] = ProductsData.data
+        const CategoryData = await CategoryGetAll()
+        const categorys: ICategory[] = CategoryData.data
+        const ProductsData = await ProductsGetAll()
+        const products: ListProducts[] = ProductsData.data
         // console.log(categorys);
-        
-        return`
+
+        return `
          ${HeaderUser.render()}
          <section class="md:flex md:justify-between md:items-start max-w-[1240px] m-auto md:mt-[30px]">
             <div class="hidden md:block px-[20px] capitalize  shadow-[#333]-500/50 shadow-2xl max-w-[300px] w-full h-[384px]">
                 <ul>
-                ${categorys.map((category:any) => `
+                ${categorys.map((category: any) => `
                         <li class="mt-[15px] hover:text-red-600 transition ease-in-out delay-150 text-[#727272]">
                                 <i class="${category.icon}"></i>
                                 <button data-id="${category._id}" id="btn-cate" class="ml-[10px]">${category.name}</button>
@@ -71,7 +71,7 @@ const homePage = {
             
                 <div class="grid grid-cols-2 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 mt-[15px]">
                     
-                    ${products.map((product:any) => `
+                    ${products.map((product: any) => `
 
                                 <a href="/detailproducts/${product._id}" class="relative group hover:shadow-lg px-[15px] py-[25px] rounded-md">
                                 <div class="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
@@ -80,11 +80,11 @@ const homePage = {
                                 <div class="pr-[10px]">
                                     <h3 class="mt-4 text-sm text-gray-700 capitalize">${product.name}</h3>
                                     <div class="mt-[10px] flex justify-start items-center">
-                                        <p class="text-red-500">${product.price}₫</p>
-                                        <p class="text-gray-500 ml-2 line-through">${product.sale}₫</p>
+                                        <p class="text-red-500">${product.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</p>
+                                        <p class="text-gray-500 ml-2 line-through">${product.sale.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</p>
                                     </div>
                                     <div class="bg-[#F3F4F6] p-[10px] mt-3">
-                                        <span class="text-[12px] capitalize">${product.descriptionShort}</span>
+                                        <span class="text-[12px] capitalize">${product.feature}</span>
                                     </div>
                                     <div class="mt-3">
                                         <i class="fa-solid fa-star text-[#f59e0b]"></i>
@@ -100,7 +100,7 @@ const homePage = {
                                         class="max-w-[90px] w-full relative"
                                     >
                                     <span class="absolute top-0 left-[10%] text-white font-normal capitalize">
-                                        giảm 20%
+                                        giảm ${((product.price - product.sale) / product.price * 100).toFixed(0)}%
                                     </span>
                                 </div>
                                 </a>
@@ -115,9 +115,9 @@ const homePage = {
     },
     afterRender() {
         // $$("#btn-cate").addEventListener('click', function() {
-            
+
         // })   
-        
+
     }
 }
 
