@@ -15,7 +15,7 @@ const DetailProducts = {
         console.log(product);
         
         const addressData = await AddressGetAll()
-        const address:IAddress = addressData.data
+        const address:IAddress[] = addressData.data
         const htmladdress = address.map(item => `
               <option value="${item._id}">${item.name}</option>
         `)
@@ -130,7 +130,6 @@ const DetailProducts = {
                         <!--  -->
                         <div class="md:max-w-[400px] w-full px-[20px] mt-[20px]">
                         <select id="addressdetail"  name="addressdetail" class="w-full capitalize py-[10px] pl-[20px] rounded-lg">
-                            <option value="">chọn miền dưới đây</option>
                             ${htmladdress}
                         </select>
 
@@ -139,8 +138,10 @@ const DetailProducts = {
                             có những cửa hàng
                             </h3>
 
-                            <div class="px-[25px] pb-[10px] border-[1px] border-[#777] rounded-lg mt-[5px]">
-                            <div id="showAddress"></div>
+                            <div class="border-[1px] border-[#777] rounded-lg mt-[5px] px-[5px] pb-[10px]">
+                                <div id="showAddress" class="">
+
+                                </div>
                             </div>
                             
                         </div>
@@ -252,7 +253,7 @@ const DetailProducts = {
 
         const showAddress = $$("#showAddress")
     
-        $$('#addressdetail')?.addEventListener('change',async function () {
+        $$('#addressdetail')?.addEventListener('click',async function () {
        
            const idData =  this.value
            const resultData = await AddressGetOne(idData)
@@ -262,14 +263,14 @@ const DetailProducts = {
                const result = htmlsaddressdetail.map((item:any) => /*html*/`
                
                <div
-                   class="mt-[15px] flex items-center p-[20px] md:p-[5px] md:justify-between"
+                   class="mt-[10px] flex items-center p-[20px] md:p-[5px] md:justify-between"
                >
                    <a
                    href="#!"
                    class="hover:underline text-red-600 inline-block text-[14px] text-center"
                    ><i class="fa-solid fa-phone"></i> ${item.phoneNumber}</a
                    >
-                   <span class="text-[13px] ml-[5px]"
+                   <span class="text-[13px] ml-[5px] max-w-[225px]"
                    > ${item.name}
                    </span>
                </div>
@@ -278,6 +279,31 @@ const DetailProducts = {
                `).join("")
                showAddress.innerHTML = result
            })
+
+           const idData =  $$('#addressdetail').value
+           const resultData = await AddressGetOne(idData)
+           const htmlsaddressdetail = resultData.data.detailAdd
+           console.log(htmlsaddressdetail);
+           
+               const result = htmlsaddressdetail.map((item:any) => /*html*/`
+               
+               <div
+                   class="mt-[10px] flex items-center p-[20px] md:p-[5px] md:justify-between"
+               >
+                   <a
+                   href="#!"
+                   class="hover:underline text-red-600 inline-block text-[14px] text-center"
+                   ><i class="fa-solid fa-phone"></i> ${item.phoneNumber}</a
+                   >
+                   <span class="text-[13px] ml-[5px] max-w-[225px]"
+                   > ${item.name}
+                   </span>
+               </div>
+              
+             
+               `).join("")
+               showAddress.innerHTML = result
+
 
     $$("#btn-blockDesc").addEventListener('click', function() {
         $$("#descLong").classList.remove("hidden")
