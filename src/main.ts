@@ -51,7 +51,10 @@ router.on({
   },
   "/admin/category": () => print(HomeCategories),
   "/admin/createcategory": () => print(CreateCategories),
-  "/admin/category/:id/updatecategory": () => print(UpdateCategories),
+  "/admin/category/:id/updatecategory": (id:any) => {
+    const paramsId = id.data.id;
+    print(UpdateCategories, paramsId)
+  },
   // Lognin & Signin
   "/signin": () => print(Signin),
   "/signup": () => print(Signup)
