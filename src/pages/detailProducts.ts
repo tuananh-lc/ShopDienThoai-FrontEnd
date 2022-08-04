@@ -249,7 +249,8 @@ const DetailProducts = {
                 amount:parseInt(amount)
             }
             // get existed data
-            const cart = JSON.parse(localStorage.getItem("cart"))
+ 
+          const cart = JSON.parse(localStorage.getItem("cart"))
             if(cart) {
                 const index = cart.findIndex(x => x._id === productCart._id)
                 if (index === -1) {

@@ -3,9 +3,11 @@ import HeaderUser from "../components/Header/User"
 
 const cartProducts = {
     render() {
-        return`
+        const newCart = JSON.parse(localStorage.getItem("cart"))
+            console.log(newCart, "localstorage");
+        return /*html*/`
             ${HeaderUser.render()}
-
+            
                 <section class="max-w-[1240px] m-auto px-[20px] mb-[80px] md:mt-[100px] mt-[80px]">
                     <div class="max-w-[570px] w-full m-auto">
                         <div class="flex mt-[10px]">
@@ -21,27 +23,27 @@ const cartProducts = {
                             >
                         </div>
                         </div>
-
+                        ${newCart.map((newCart: any) => /*html*/`
                         <div
                         class="mt-[30px] shadow-xl py-[20px] px-[20px] rounded-xl flex justify-between items-start"
                         >
                         <div>
                             <img
-                            src="https://image.cellphones.com.vn/200x/media/catalog/product/i/p/iphone-11_3__1.jpg"
+                            src="${newCart.image}"
                             alt=""
                             class="w-full max-w-[180px]"
                             />
                         </div>
                         <div class="ml-[10px]">
                             <h3 class="capitalize text-[18px] text-[#333] font-medium">
-                            iPhone 11 128GB Tím
+                            ${newCart.name}
                             </h3>
                             <div class="flex items-center justify-between">
                             <span class="text-red-500 text-[16px] font-medium"
-                                >13.290.000 ₫</span
+                                >${newCart.sale.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span
                             >
                             <span class="text-[#888] line-through text-[14px]"
-                                >17.290.000 ₫</span
+                                >${newCart.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span
                             >
                             <span
                                 class="py-[5px] px-[10px] bg-red-600 text-white capitalize ml-[10px] rounded-lg inline-block"
@@ -61,7 +63,7 @@ const cartProducts = {
                             </button>
                         </div>
                         </div>
-
+                        `).join("")}
                         <div class="mt-[50px] shadow-lg p-[20px]">
                         <div class="flex justify-between">
                             <h3 class="text-[18px] capitalize font-medium">
@@ -83,6 +85,7 @@ const cartProducts = {
                         </div>
                     </div>
                     </section>
+                   
                 ${Foodter.render()}
         `
     }
