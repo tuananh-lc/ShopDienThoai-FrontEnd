@@ -16,10 +16,10 @@ export const CreatrProducts = (product:{}) => {
     return instance.post("/products", product)
 }
 
-export const UpdateProducts = (product:{}, id:number) => {
-    return instance.put(`/products/${id}`, product)
+export const UpdateProducts = (product:{}, id:any) => {
+    return instance.patch(`/products/${id}`, product)
 }
 
-export const RemoveProducts = (id:number) => {
+export const RemoveProducts = (id:any) => {
     return instance.delete(`/products/${id}`)
 }
