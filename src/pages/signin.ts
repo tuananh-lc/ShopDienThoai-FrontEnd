@@ -84,20 +84,12 @@ const Signin = {
                     type="text"
                     class="check-error form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     id="email"
-                    placeholder="Name user"
+                    placeholder="Email user"
                   />
                   <span class="error-input block text-red-500 text-xs ml-[10px] mt-[5px]"><span>
                 </div>
 
-                <div class="mb-6">
-                  <input
-                    type="text"
-                    class="check-error form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                    id="email"
-                    placeholder="Email address"
-                  />
-                  <span class="error-input block text-red-500 text-xs ml-[10px] mt-[5px]"><span>
-                </div>
+                
       
                 <!-- Password input -->
                 <div class="mb-6">
@@ -148,7 +140,7 @@ const Signin = {
       </section>
         `
     },
-    afterRender() {
+    async afterRender() {
       let checkValidate = false
       $$(".check-error").forEach((item:any, index:number) => {
           item.onblur = () => {
@@ -183,10 +175,22 @@ const Signin = {
               email: $$('#email').value,
               password: $$('#password').value,
             }
+            
             const result = await signin(user)
-            if(result){
-              location.href = "/"
-            }         
+            console.log(result);
+            
+            if(result.data.user.role === 0){
+                confirm("Đăng nhập thành công")
+                setTimeout(function() {
+                    location.href = "/"
+                },3000)
+            }else{
+              confirm("hello admin")
+              setTimeout(function() {
+                location.href = "/admin"
+              },3000)
+            }
+                    
           }
           
       })

@@ -74,11 +74,12 @@ const cartProducts = {
                         >
                             tiến hành đặt hàng
                         </button>
-                        <button
-                            class="block bg-white w-full mt-[10px] py-[15px] text-red-600 capitalize border-[1px] border-red-600 font-bold transition delay-150 duration-300 ease-in-out hover:bg-red-600 hover:text-white rounded-lg"
+                        <a
+                            href="/"
+                            class="block text-center cursor-pointer bg-white w-full mt-[10px] py-[15px] text-red-600 capitalize border-[1px] border-red-600 font-bold transition delay-150 duration-300 ease-in-out hover:bg-red-600 hover:text-white rounded-lg"
                         >
                             chọn thêm sản phẩm khác
-                        </button>
+                        </a>
                         </div>
                     </div>
                     </section>
