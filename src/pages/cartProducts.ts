@@ -6,7 +6,7 @@ const cartProducts = {
         return`
             ${HeaderUser.render()}
 
-                <section class="max-w-[1240px] m-auto px-[20px] mb-[80px]">
+                <section class="max-w-[1240px] m-auto px-[20px] mb-[80px] md:mt-[100px] mt-[80px]">
                     <div class="max-w-[570px] w-full m-auto">
                         <div class="flex mt-[10px]">
                         <div class="flex items-center justify-between w-[70px]">

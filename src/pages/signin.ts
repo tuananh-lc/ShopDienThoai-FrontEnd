@@ -84,6 +84,16 @@ const Signin = {
                     type="text"
                     class="check-error form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     id="email"
+                    placeholder="Name user"
+                  />
+                  <span class="error-input block text-red-500 text-xs ml-[10px] mt-[5px]"><span>
+                </div>
+
+                <div class="mb-6">
+                  <input
+                    type="text"
+                    class="check-error form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    id="email"
                     placeholder="Email address"
                   />
                   <span class="error-input block text-red-500 text-xs ml-[10px] mt-[5px]"><span>

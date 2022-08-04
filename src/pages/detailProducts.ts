@@ -6,6 +6,7 @@ import { ListProducts } from "../Interface/IProducts"
 import { $$ } from "./utilities/utiliti"
 import { AddressGetOne, AddressGetAll } from "../api/address"
 import { IAddress } from "../Interface/IAddress"
+import {findIndex} from 'lodash'
 
 
 const DetailProducts = {
@@ -30,7 +31,7 @@ const DetailProducts = {
         return /*html*/`
             ${HeaderUser.render()}
 
-            <section class="max-w-[1240px] m-auto">
+            <section class="max-w-[1240px] m-auto md:mt-[100px] mt-[80px]">
                     <div
                         class="py-[10px] flex flex-wrap justify-start items-center shadow-xl pl-[20px] rounded-sm"
                     >
@@ -247,6 +248,21 @@ const DetailProducts = {
                 feature:product.feature,
                 amount:parseInt(amount)
             }
+            // get existed data
+            const cart = JSON.parse(localStorage.getItem("cart"))
+            if(cart) {
+                const index = cart.findIndex(x => x._id === productCart._id)
+                if (index === -1) {
+                    cart.push(productCart)
+                }
+                localStorage.setItem("cart",JSON.stringify([...cart]))
+            } else {
+                localStorage.setItem("cart",JSON.stringify([productCart]))
+            }
+            const newCart = JSON.parse(localStorage.getItem("cart"))
+            console.log(newCart, "localstorage");
+            
+            
                 
         })
 

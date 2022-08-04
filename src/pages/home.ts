@@ -16,7 +16,7 @@ const homePage = {
 
         return `
          ${HeaderUser.render()}
-         <section class="md:flex md:justify-between md:items-start max-w-[1240px] m-auto md:mt-[30px]">
+         <section class="md:flex md:justify-between md:items-start max-w-[1240px] m-auto md:mt-[100px] mt-[80px]">
             <div class="hidden md:block px-[20px] capitalize  shadow-[#333]-500/50 shadow-2xl max-w-[300px] w-full h-[384px]">
                 <ul>
                 ${categorys.map((category: any) => `
