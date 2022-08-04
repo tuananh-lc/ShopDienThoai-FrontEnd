@@ -23,14 +23,24 @@ const Signup = {
             <div>
                 <div class="mb-6">
                   <input
-                    type="email"
+                    type="text"
                     class="check-error form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                    id="email"
-                    placeholder="Email"
+                    id="name"
+                    placeholder="Name"
                   />
                   <span class="error-input block text-red-500 text-xs ml-[10px] mt-[5px]"><span>
                 </div>
-      
+
+                <div class="mb-6">
+                  <input
+                    type="text"
+                    class="check-error form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    id="email"
+                    placeholder="Email address"
+                  />
+                  <span class="error-input block text-red-500 text-xs ml-[10px] mt-[5px]"><span>
+                </div>
+
                 <div class="mb-6">
                   <input
                     type="password"
@@ -93,15 +103,18 @@ const Signup = {
 
             if(checkValidate){
                 const user = {
+                    name:$$("#name").value,
                     email:$$("#email").value,
                     password:$$("#password").value,
                     role:0
                 }
-                console.log(user);
+                // console.log(user);
                 const result = await signup(user)
                 if(result){
                     confirm("Đăng ký thành công")
-                    location.href = "/signin"
+                    setTimeout(function() {
+                      location.href = "/signin"
+                    },3000)
                 }
             }          
         })
