@@ -4,7 +4,7 @@ import { $$ } from "../../pages/utilities/utiliti"
 const HeaderUser = {
     render() {
         return `
-                <header class="bg-red-600 w-full">
+                <header class="bg-red-600 w-full fixed top-0 left-0 z-50">
                 <section
                 class="max-w-[1240px] m-auto py-[15px] md:px-[0px] px-[15px] flex justify-between items-center"
                 >
@@ -108,7 +108,7 @@ const HeaderUser = {
                 <div
                     class="relative hidden md:block transition ease-in-out delay-150 bg-[#ffffff3d] leading-[50px] px-[20px] rounded-lg"
                 >
-                   <a href="signin">
+                   <a href="/signin">
                         <i class="fa-solid fa-user-tie text-[18px] text-[#fff]"></i>
                         <span class="capitalize text-[13px] text-[#fff]">user</span>
                    </a>
@@ -137,8 +137,8 @@ const HeaderUser = {
                                 <div>
                                     <h3 class="text-[#222] text-[18px] font-medium capitalize">${item.name}</h3>
                                     <div>
-                                        <span class="text-red-500">${item.price}</span>
-                                        <span class="text-[#555] line-through ml-[5px]">${item.sale}</span>
+                                        <span class="text-red-500">${item.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
+                                        <span class="text-[#555] line-through ml-[5px]">${item.sale.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
                                     </div>
                                 </div>
                             </div>
