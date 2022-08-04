@@ -1,5 +1,6 @@
-import { CategoryGetAll } from "../../../api/categorys"
+import { CategoryGetAll, RemoveCategory} from "../../../api/categorys"
 import HeaderAdmin from "../../../components/Header/Admin"
+import { reRender } from "../../utilities/utiliti"
 import Sidebar from "../../../components/Sidebar/slibarAdmin"
 import { ICategory } from "../../../Interface/ICategorys"
 import { $$ } from "../../utilities/utiliti"
@@ -50,10 +51,10 @@ const HomeCategories = {
                                         </td>
                                     
                                         <td class="py-4 px-6">
-                                        <a href="/admin/category/${category.id}/updatecategory" data-navigo class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
+                                        <a href="/admin/category/${category._id}/updatecategory" data-navigo class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
                                         <i title="edit" class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <button data-id="${category.id}" data-navigo id="btn-remove" class="ml-[10px] text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
+                                    <button data-id="${category._id}" data-navigo id="btn-remove" class="ml-[10px] text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
                                         <i title="Remove" class="fa-solid fa-trash"></i>
                                     </button>
                                         </td>
@@ -71,8 +72,22 @@ const HomeCategories = {
         `
     },
     afterRender() {
-        $$("#category").classList.add("text-active")
-        $$("#category").classList.add("bg-blue-500")
+        const btns = document.querySelectorAll('#btn-remove');
+        btns.forEach((btn:any)=>{
+            btn.addEventListener('click', async function () {
+                const btnId = this.getAttribute("data-id")
+                parseInt(btnId)
+                const confirm =window.confirm("Bạn chắc có muốn xóa bản phẩm này?")
+                if(confirm){
+                    const result = await RemoveCategory(btnId)
+                    if (result) {
+                    reRender(HomeCategories, "#app")
+                    alert("Xóa danh mục sản phẩm thành công")
+                }
+                }
+                
+            })
+        });
     }
 }
 
