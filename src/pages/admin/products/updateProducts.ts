@@ -4,22 +4,29 @@ import Sidebar from "../../../components/Sidebar/slibarAdmin"
 import { $$ } from "../../utilities/utiliti"
 import { ListProducts } from "../../../Interface/IProducts"
 import { ICategory } from "../../../Interface/ICategorys"
-import { CategoryGetAll } from "../../../api/categorys"
+import { CategoryGetAll, CategoryGetOne } from "../../../api/categorys"
+import { upload } from "../../../api/image"
 const updateProducts = {
-    async render(id: string) {
+    async render(id: any) {
         // console.log(typeof id);
 
         const ProductData = await ProductsGet(id)
         const product: ListProducts = ProductData.data
-        // console.log(product);
+        console.log(product);
         const categoryData = await CategoryGetAll()
         const category: ICategory[] = categoryData.data
+
+        const productID: ListProducts[] =  product.categoryId
+        const categoryProducts =await CategoryGetOne(productID)
+        const productID2: ListProducts[] =  categoryProducts.data.category
+        
+        console.log("categoryProducts", productID2);
+        
         const cate = category.map(item => `
              <option value="${item._id}" class="capitalize">${item.name}</option>
         `).join("")
-        // console.log(cate);
-
-        return `
+     
+        return /*html*/`
         ${HeaderAdmin.render()}
     
         <div class="flex justify-between px-[30px] mt-[100px]">
@@ -30,13 +37,14 @@ const updateProducts = {
                     <h2 class="capitalize text-[20px] leading-[30px] text-[#5F5E61] font-bold">cập nhật sản phẩm</h2>
                     
                     <div class="flex justify-between items-start mb-[50px]">
-                        <div class="mt-[32px] rounded-2xl shadow-2xl overflow-hidden bg-[#fff]"">
+                        <div class="mt-[32px] rounded-2xl shadow-2xl overflow-hidden bg-[#fff]">
                             <div class="shadow-xl">
-                                <img class="max-w-[384px] w-full" src="${product.image}" id="image">
+                                <img id="preview-image"  src="${product.image}" class="max-w-[384px] w-full" >
+                                <input id="edit-file" type="file" type="file" accept="image/png, image/jpg, image/jpeg" >
                             </div>
                             <div class="rounded-b-2xl overflow-hidden">
                                 <label for="descSort" class="capitalize text-[16px] text-[#5A6169] bg-[#fff] block pl-[15px] pt-[25px]">mô tả ngắn...</label>
-                                <textarea id="descSort" name="descSort" rows="4" cols="50" class="check-validate outline-0 px-[15px] max-w-[384px] w-full">${product.descriptionSort}</textarea>
+                                <textarea id="descSort" name="descSort" rows="4" cols="50" class="check-validate outline-0 px-[15px] max-w-[384px] w-full">${product.descriptionShort}</textarea>
                                 <span class="error-input block text-red-500 text-xs "><span>
                             </div>
                         </div>
@@ -67,14 +75,14 @@ const updateProducts = {
                                 <div class="mt-[10px]">
                                         <label for="category" class="capitalize text-[16px] leading-[19px] text-[#5A6169]">danh mục</label><br>
                                         <select class="max-w-[400px] w-full mt-[5px] p-[10px] outline-0 capitalize" id="selectCate">
-                                            <option value="${product.categoryId}">${product.category.name}</option>
+                                            <option value="${product.categoryId}">${productID2.name}</option>
                                             ${cate}
                                         </select>
                                 </div>
 
                                 <div class="mt-[10px]">
                                     <label for="outstanding" class="capitalize text-[16px] leading-[19px] text-[#5A6169]">đặc điểm nổi bật</label><br>
-                                    <textarea id="outstanding" name="outstanding" rows="5" cols="50" class="check-validate mt-[5px] py-[5px] outline-0 px-[15px] w-full">${product.outstanding}</textarea>
+                                    <textarea id="outstanding" name="outstanding" rows="5" cols="50" class="check-validate mt-[5px] py-[5px] outline-0 px-[15px] w-full">${product.feature}</textarea>
                                     <span class="error-input block text-red-500 text-xs "><span>
                                 </div>
                                 <div class="mt-[10px]">
@@ -102,6 +110,23 @@ const updateProducts = {
         $$('#list').classList.add("text-active")
         $$('#list').classList.add("bg-blue-500")
 
+        const editFile = $$('#edit-file')
+        const previewImage = $$('#preview-image')
+        editFile?.addEventListener('change', (event:any) => {
+			const file = event.target.files[0]
+			const reader = new FileReader()
+            console.log(reader);
+            
+			reader.readAsDataURL(file)
+			reader.onloadend = async () => {
+				const res = await upload(reader.result)
+				console.log(res)
+				const data = res.data
+				previewImage.src = data.url
+			}
+		})
+
+
         let checkValidate: boolean = false
         $$(".check-validate").forEach((item: any, index: number) => {
             // console.log(item);
@@ -128,27 +153,27 @@ const updateProducts = {
 
             })
         })
-        $$("image").src
+        
         $$("#btnUpdate").addEventListener('click', async function () {
             if (checkValidate) {
-                const imgInfo = $$("#image").src
+                
                 const price = $$("#price").value
                 const sale = $$("#sale").value
                 const cate = $$("#selectCate").value
 
                 const product = {
-                    id: id,
+                    _id: id,
                     name: $$("#name").value,
                     price:parseInt(price),
                     sale:parseInt(sale),
-                    image: imgInfo,
-                    categoryId: parseInt(cate),
-                    outstanding: $$("#outstanding").value,
+                    image: previewImage?.src,
+                    categoryId: String(cate),
+                    feature: $$("#outstanding").value,
                     descriptionLong: $$("#descLong").value,
-                    descriptionSort: $$("#descSort").value,
+                    descriptionShort: $$("#descSort").value,
                     ishidden: true
                 }
-                // console.log(product);
+                console.log("product", product);
 
                 const NewProduct = await UpdateProducts(product, id)
                 // console.log(NewProduct);

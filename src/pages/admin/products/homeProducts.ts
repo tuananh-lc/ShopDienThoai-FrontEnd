@@ -96,20 +96,20 @@ const homeProducts = {
                                     </td>
                                     <td class="py-4 px-6 ">
                                         <span class="max-w-[250px] w-full block">
-                                            ${item.descriptionSort}
+                                            ${item.descriptionShort}
                                         </span>
                                     </td>
                                     <td class="py-4 px-6 text-center">
                                         <button href="#" class="text-[30px]  font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                            <i title="show" class="fa-solid fa-toggle-off" data-id="${item.id}" id="off"></i>
-                                            <i title="hidden" class="fa-solid fa-toggle-on hidden" data-id="${item.id}" id="on"></i>
+                                            <i title="show" class="fa-solid fa-toggle-off" data-id="${item._id}" id="off"></i>
+                                            <i title="hidden" class="fa-solid fa-toggle-on hidden" data-id="${item._id}" id="on"></i>
                                         </button>
                                     </td>
                                     <td class="py-4 px-6 flex justify-between items-center leading-[190px]">
                                         <a href="/admin/products/${item._id}/updateproducts" data-navigo class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
                                             <i title="edit" class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                        <a href="/admin/products/${item._id}" class="mx-[10px] text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
+                                        <a href="/detailproducts/${item._id}" class="mx-[10px] text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
                                             <i title="Eye" class="fa-solid fa-eye"></i>
                                         </a>
                                         <button data-id="${item._id}" data-navigo id="btn-remove" class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
@@ -143,7 +143,7 @@ const homeProducts = {
         const categoryData = await CategoryGetAll()
         const categorys: ICategory[] = categoryData.data
 
-        const CateID = categorys.map(cate => cate.id)
+        const CateID = categorys.map(cate => cate._id)
 
         $$("#btn-remove").forEach((btn: any) => {
             btn.addEventListener('click', async function () {
@@ -213,7 +213,7 @@ const homeProducts = {
         </td>
         <td class="py-4 px-6 ">
             <span class="max-w-[250px] w-full block">
-                ${item.descriptionSort}
+                ${item.descriptionShort}
             </span>
         </td>
         <td class="py-4 px-6 text-center">
@@ -222,13 +222,13 @@ const homeProducts = {
             </button>
         </td>
         <td class="py-4 px-6 flex justify-between items-center leading-[190px]">
-            <a href="/updateproducts/${item.id}" class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
+            <a href="/updateproducts/${item._id}" class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
                 <i title="edit" class="fa-solid fa-pen-to-square"></i>
             </a>
             <a href="/products/id" class="mx-[10px] text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
                 <i title="Eye" class="fa-solid fa-eye"></i>
             </a>
-            <button data-id="${item.id}" id="btn-remove" class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
+            <button data-id="${item._id}" id="btn-remove" class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
                 <i title="Remove" class="fa-solid fa-trash"></i>
             </button>
         </td>

@@ -14,7 +14,7 @@ const createProducts = {
         const cate = category.map(item =>`
              <option value="${item._id}" class="capitalize">${item.name}</option>
         `).join("")
-        return`
+        return/*html*/`
         ${HeaderAdmin.render()}
             
         <div class="flex justify-between px-[30px] mt-[100px]">
@@ -25,9 +25,9 @@ const createProducts = {
                     <h2 class="capitalize text-[20px] leading-[30px] text-[#5F5E61] font-bold">thêm mới sản phẩm</h2>
                     
                     <div class="flex justify-between items-start mb-[50px]" id="fromCreat">
-                        <div class="mt-[32px] rounded-2xl shadow-2xl overflow-hidden bg-[#fff]"">
+                        <div class="mt-[32px] rounded-2xl shadow-2xl overflow-hidden bg-[#fff]">
                             <div class="shadow-xl">
-                                <img id="edit-image" class="max-w-[384px] w-full" src="https://cdn.tgdd.vn/Products/Images/42/250258/iphone-13-blue-1-600x600.jpg" id="image">
+                                <img id="preview-image" class="max-w-[384px] w-full" >
                                 <input id="edit-file" type="file" type="file" accept="image/png, image/jpg, image/jpeg" >
                             </div>
                             <div class="rounded-b-2xl overflow-hidden">
@@ -96,21 +96,21 @@ const createProducts = {
         $$('#list').classList.add("bg-blue-500")
         let checkValidate = false
         const editFile = $$('#edit-file')
-		const editImage = $$('#edit-image')
+		const previewImage = document.querySelector('#preview-image')
 
-		// editFile?.addEventListener('change', (event:any) => {
-		// 	const file = event.target.files[0]
-		// 	const reader = new FileReader()
-        //     console.log(reader);
+		editFile?.addEventListener('change', (event:any) => {
+			const file = event.target.files[0]
+			const reader = new FileReader()
+            console.log(reader);
             
-		// 	reader.readAsDataURL(file)
-		// 	reader.onloadend = async () => {
-		// 		const res = await upload(reader.result)
-		// 		console.log(res)
-		// 		const data = res.data
-		// 		editImage.src = data.url
-		// 	}
-		// })
+			reader.readAsDataURL(file)
+			reader.onloadend = async () => {
+				const res = await upload(reader.result)
+				console.log(res)
+				const data = res.data
+				previewImage.src = data.url
+			}
+		})
 
         $$(".check-validate").forEach((item:any, index:number) => {
             console.log(item);
@@ -146,22 +146,22 @@ const createProducts = {
             const cate = $$("#selectCate").value
 
             const product = {
-                id:Math.round(Math.random() * 696969),
+                // _id:Math.round(Math.random() * 696969),
                 name:$$("#name").value,
                 price:parseInt(price),
                 sale:parseInt(sale),
-                image:$$("#image").src,
-                categoryId: parseInt(cate),
-                outstanding:$$("#outstanding").value,
+                image:previewImage?.src,
+                categoryId: String(cate),
+                feature:$$("#outstanding").value,
                 descriptionLong:$$("#descLong").value,
-                descriptionSort:$$("#descSort").value,
+                descriptionShort:$$("#descSort").value,
               }
-            //   console.log(product);
+           console.log(product);
             const result = await CreatrProducts(product)
             if(result){
                 alert("Thêm sản phẩm thành công đợi 3s để quay lại")
                 setTimeout(function() {
-                    location.href = "/products"
+                    location.href = "/admin/products"
                 },3000)
             }
           }
