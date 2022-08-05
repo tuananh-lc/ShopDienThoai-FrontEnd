@@ -1,5 +1,7 @@
+import { $$, reRender } from "../../pages/utilities/utiliti";
+
 const HeaderAdmin = {
-	render: () => {
+	render() {
 		const user = JSON.parse(localStorage.getItem("user"))
 		return (
             /*html*/`
@@ -16,12 +18,21 @@ const HeaderAdmin = {
 					<div>
 						<h2 class="capitalize text-[20px] leading-[30px] font-medium text-[#fff]">
 							${user.user.name}
+							<button class="text-white ml-[5px] hover:text-blue-800" id="OutAdmin" >${user?`<i class="fa-solid fa-arrow-right-from-bracket"></i>`:""}</button>
 						</h2>
 					</div>
 					</div>
 				</div>
             `
 		)
+	},
+	afterRender() {
+		console.log(123);
+		
+		const outAdmin = document.querySelector("#OutAdmin")
+		console.log(outAdmin);
+		
+		
 	}
 }
 

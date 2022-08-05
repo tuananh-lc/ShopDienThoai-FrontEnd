@@ -14,6 +14,10 @@ import HomeCategories from './pages/admin/categories/homeCategory'
 import CreateCategories from './pages/admin/categories/creatCategory'
 import UpdateCategories from './pages/admin/categories/updateCategory'
 import HeaderUser from './components/Header/User'
+import HomeUsers from './pages/admin/users/homeUsers'
+import CreateUser from './pages/admin/users/creatUsers'
+import UpdateUser from './pages/admin/users/updateUsers'
+import HeaderAdmin from './components/Header/Admin'
 // ********************
 const router = new Navigo('/', {linksSelector: "a"})
 interface Ipage {
@@ -21,6 +25,7 @@ interface Ipage {
   afterRender(id?:string) : any
 }
 const app = document.getElementById('app')
+if(HeaderAdmin.afterRender) HeaderAdmin.afterRender()
 const print =async (page:Ipage, id?:string) => {
   if(app){
     app.innerHTML =await page.render(id)
@@ -54,6 +59,12 @@ router.on({
   "/admin/category/:id/updatecategory": (id:any) => {
     const paramsId = id.data.id;
     print(UpdateCategories, paramsId)
+  },
+  "/admin/users": () => print(HomeUsers),
+  "/admin/createuser": () => print(CreateUser),
+  "/admin/users/:id/updateuser": (id:any) => {
+    const paramsId = id.data.id;
+    print(UpdateUser, paramsId)
   },
   // Lognin & Signin
   "/signin": () => print(Signin),

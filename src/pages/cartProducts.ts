@@ -25,6 +25,7 @@ const cartProducts = {
                             >
                         </div>
                         </div>
+                        
                         ${newCart?.map((newCart: any) => /*html*/`
                         <div
                         class="mt-[30px] shadow-xl py-[20px] px-[20px] rounded-xl flex justify-between items-start"
@@ -52,7 +53,26 @@ const cartProducts = {
                             >
                                 giảm ${((newCart.price-newCart.sale)/newCart.price *100).toFixed(0)}%
                             </span>
+
                             </div>
+                            <div class="ml-[10px]">
+                                <h3 class="capitalize text-[18px] text-[#333] font-medium">
+                                ${newCart.name}
+                                </h3>
+                                <div class="flex items-center justify-between">
+                                <span class="text-red-500 text-[16px] font-medium"
+                                    >${newCart.sale.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span
+                                >
+                                <span class="text-[#888] line-through text-[14px]"
+                                    >${newCart.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span
+                                >
+                                <span
+                                    class="py-[5px] px-[10px] bg-red-600 text-white capitalize ml-[10px] rounded-lg inline-block"
+                                >
+                                    giảm 30%
+                                </span>
+                                </div>
+
 
                             <div class="flex justify-between mt-[10px] w-full max-w-[180px]">Số lượng
                                         <input type="number" class="outline-none text-[14px] text-[#333] max-w-[90px] text-center pl-[25px]" id="amount" disabled value="${newCart.amount}">
@@ -67,6 +87,7 @@ const cartProducts = {
                         </div>
                         </div>
                         
+
                         <div class="mt-[50px] shadow-lg p-[20px]">
                         <div class="flex justify-between">
                             <h3 class="text-[18px] capitalize font-medium">

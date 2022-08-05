@@ -1,5 +1,8 @@
+import { signup } from "../../api/auth"
 import { search } from "../../api/search"
-import { $$ } from "../../pages/utilities/utiliti"
+import homePage from "../../pages/home"
+import Signup from "../../pages/signup"
+import { $$, reRender } from "../../pages/utilities/utiliti"
 
 const HeaderUser = {
     render() {
@@ -115,9 +118,10 @@ const HeaderUser = {
                     class="relative hidden md:block transition ease-in-out delay-150 bg-[#ffffff3d] leading-[50px] px-[20px] rounded-lg"
                 >
                    <a href="/signin">
-                        <i class="fa-solid fa-user-tie text-[18px] text-[#fff]"></i>
-                        <span class="capitalize text-[13px] text-[#fff]">${user ? user.user?.name : "user"}</span>
+                        <i class="fa-solid fa-user-tie text-[18px] text-[#fff]"></i>                     
+                        <span class="capitalize text-[13px] text-[#fff]">${user ? user.user.name  : "user"}</span>
                    </a>
+                   <button class="text-white ml-[5px] hover:text-red-800" id="outUser">${user?`<i class="fa-solid fa-arrow-right-from-bracket"></i>`:""}</button>
                 </div>
                 
                 </section>
@@ -158,8 +162,14 @@ const HeaderUser = {
             }
            
         })
+
+        $$("#outUser").addEventListener('click', function() {
+            localStorage.removeItem("user");
+            setTimeout(function() {reRender(Signin, "#app")},2000)
+        })
         
-    }
+    },
+  
 }
 
 export default HeaderUser
