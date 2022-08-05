@@ -3,6 +3,9 @@ import { $$ } from "../../pages/utilities/utiliti"
 
 const HeaderUser = {
     render() {
+        const carts = JSON.parse(localStorage.getItem("cart"))
+        // console.log("carts",carts);
+        const user = JSON.parse(localStorage.getItem("user"))
         return `
                 <header class="bg-red-600 w-full fixed top-0 left-0 z-50">
                 <section
@@ -93,7 +96,7 @@ const HeaderUser = {
                     </div>
                     </div>
                     <div
-                    class="bg-[#ffffff3d] transition ease-in-out delay-150 md:bg-inherit md:hover:bg-[#ffffff3d] max-h-[50px] rounded-lg mx-[10px] leading-[50px] flex items-center"
+                    class="relative bg-[#ffffff3d] transition ease-in-out delay-150 md:bg-inherit md:hover:bg-[#ffffff3d] max-h-[50px] rounded-lg mx-[10px] leading-[50px] flex items-center"
                     >
                     <a href="/cartproducts" class="">
                         <div class="text-center py-[8px] px-[5px]">
@@ -103,6 +106,9 @@ const HeaderUser = {
                         <span class="capitalize text-[10px] text-[#fff]">giỏ hàng</span>
                         </div>
                     </a>
+                    <div class="absolute bottom-[3px] left-[11px] max-w-[10px] w-full block ">
+                        <span class=" h-[5px] text-white rounded-2xl px-[3px] bg-red-600 text-[9px]">${carts? carts.length : 0}</span>
+                    </div>
                     </div>
                 </div>
                 <div
@@ -110,7 +116,7 @@ const HeaderUser = {
                 >
                    <a href="/signin">
                         <i class="fa-solid fa-user-tie text-[18px] text-[#fff]"></i>
-                        <span class="capitalize text-[13px] text-[#fff]">user</span>
+                        <span class="capitalize text-[13px] text-[#fff]">${user ? user.user.name : "user"}</span>
                    </a>
                 </div>
                 

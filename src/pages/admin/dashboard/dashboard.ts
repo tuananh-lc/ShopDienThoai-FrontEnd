@@ -3,15 +3,18 @@ import { ProductsGetAll } from "../../../api/products"
 import HeaderAdmin from "../../../components/Header/Admin"
 import Sidebar from "../../../components/Sidebar/slibarAdmin"
 import { ListProducts } from "../../../Interface/IProducts"
+import { IUsers } from "../../../Interface/IUsers"
 import { $$ } from "../../utilities/utiliti"
 
 const dashboard = {
     async render() {
         const productsData = await ProductsGetAll()
         const products= productsData.data
-        // const usersData = await UsersGetAll()
-        // const Users = usersData.data
-        // const htmlUsers= Users.length
+        const usersData = await UsersGetAll()
+        const Users:IUsers = usersData.data
+        const htmlUsers= Users.length
+        // console.log(htmlUsers);
+        
         return`
             ${HeaderAdmin.render()}
 
@@ -28,7 +31,7 @@ const dashboard = {
                                 <a class="inline-block w-full" href="#">
                                     <div class="mt-[10px] mr-[30px]">
                                         <p class="uppercase text-[20px] text-[#999999] font-bold">tài khoản</p> 
-                                        <h3 class="capitalize mt-[5px] text-[20px] text-[#333] font-medium"> user</h3>
+                                        <h3 class="capitalize mt-[5px] text-[20px] text-[#333] font-medium">${htmlUsers} user</h3>
                                     </div>
                                 </a>
                             </div>

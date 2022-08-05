@@ -1,5 +1,6 @@
 import Foodter from "../components/footer/footer"
 import HeaderUser from "../components/Header/User"
+import { $$ } from "./utilities/utiliti";
 
 const cartProducts = {
     render() {
@@ -52,9 +53,11 @@ const cartProducts = {
                             </span>
                             </div>
 
-                            <div class="mt-[5px]">
-                            <span class="capitalize">chọn số lượng: </span>
-                            <input type="number" class="w-full" />
+                            <div class="flex justify-between mt-[10px] w-full max-w-[180px]">
+                                <span class="text-[20px] border-[1px] border-[#505050] w-full border-r-[0px] text-center cursor-pointer outline-none" id="cong"> + </span>
+                                    <input type="number" class="outline-none text-[14px] text-[#333] max-w-[90px] text-center pl-[25px]" id="amount" disabled value="${newCart.amount}">
+                                <span class="text-[20px] border-[1px] border-[#505050] w-full border-l-[0px] text-center cursor-pointer outline-none" id="tru"> - </span>
+                                <!--  -->
                             </div>
                         </div>
                         <div>
@@ -88,6 +91,20 @@ const cartProducts = {
                    
                 ${Foodter.render()}
         `
+    },
+    afterRender() {
+        $$("#cong").forEach((element:any) => {
+            element.addEventListener("click", function() {
+                
+            })
+        });
+
+        
+        $$("#tru").forEach((element:any) => {
+            element.addEventListener("click", function() {
+                
+            })
+        })
     }
 }
 

@@ -1,5 +1,6 @@
 const HeaderAdmin = {
 	render: () => {
+		const user = JSON.parse(localStorage.getItem("user"))
 		return (
             /*html*/`
                 <div class="fixed top-0 w-full">
@@ -14,7 +15,7 @@ const HeaderAdmin = {
 					</div>
 					<div>
 						<h2 class="capitalize text-[20px] leading-[30px] font-medium text-[#fff]">
-							xin chào abc
+							${user.user.name}
 						</h2>
 					</div>
 					</div>
