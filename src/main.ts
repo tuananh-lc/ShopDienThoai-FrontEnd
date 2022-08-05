@@ -14,6 +14,9 @@ import HomeCategories from './pages/admin/categories/homeCategory'
 import CreateCategories from './pages/admin/categories/creatCategory'
 import UpdateCategories from './pages/admin/categories/updateCategory'
 import HeaderUser from './components/Header/User'
+import HomeUsers from './pages/admin/users/homeUsers'
+import CreateUser from './pages/admin/users/creatUsers'
+import UpdateUser from './pages/admin/users/updateUsers'
 // ********************
 const router = new Navigo('/', {linksSelector: "a"})
 interface Ipage {
@@ -55,7 +58,13 @@ router.on({
     const paramsId = id.data.id;
     print(UpdateCategories, paramsId)
   },
+  "/admin/users": () => print(HomeUsers),
   // Lognin & Signin
+  "/admin/createuser": () => print(CreateUser),
+  "/admin/users/:id/updateuser": (id:any) => {
+    const paramsId = id.data.id;
+    print(UpdateUser, paramsId)
+  },
   "/signin": () => print(Signin),
   "/signup": () => print(Signup)
 })
