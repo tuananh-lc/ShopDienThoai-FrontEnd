@@ -81,8 +81,8 @@ const homePage = {
                                 <div class="pr-[10px]">
                                     <h3 class="mt-4 text-sm text-gray-700 capitalize">${product.name}</h3>
                                     <div class="mt-[10px] flex justify-start items-center">
-                                        <p class="text-red-500">${product.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</p>
-                                        <p class="text-gray-500 ml-2 line-through">${product.sale.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</p>
+                                        <p class="text-red-500">${product.sale.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</p>
+                                        <p class="text-gray-500 ml-2 line-through">${product.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</p>
                                     </div>
                                     <div class="bg-[#F3F4F6] p-[10px] mt-3">
                                         <span class="text-[12px] capitalize">${product.feature}</span>
