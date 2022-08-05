@@ -116,7 +116,7 @@ const HeaderUser = {
                 >
                    <a href="/signin">
                         <i class="fa-solid fa-user-tie text-[18px] text-[#fff]"></i>
-                        <span class="capitalize text-[13px] text-[#fff]">${user ? user.user.name : "user"}</span>
+                        <span class="capitalize text-[13px] text-[#fff]">${user ? user.user?.name : "user"}</span>
                    </a>
                 </div>
                 

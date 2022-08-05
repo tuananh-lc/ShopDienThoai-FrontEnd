@@ -5,7 +5,8 @@ import { $$ } from "./utilities/utiliti";
 const cartProducts = {
     render() {
         const newCart = JSON.parse(localStorage.getItem("cart"))
-            console.log(newCart, "localstorage");
+        console.log(newCart, "localstorage");
+            
         return /*html*/`
             ${HeaderUser.render()}
             
@@ -24,7 +25,7 @@ const cartProducts = {
                             >
                         </div>
                         </div>
-                        ${newCart.map((newCart: any) => /*html*/`
+                        ${newCart?.map((newCart: any) => /*html*/`
                         <div
                         class="mt-[30px] shadow-xl py-[20px] px-[20px] rounded-xl flex justify-between items-start"
                         >
@@ -41,23 +42,22 @@ const cartProducts = {
                             </h3>
                             <div class="flex items-center justify-between">
                             <span class="text-red-500 text-[16px] font-medium"
-                                >${newCart.sale.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span
+                                >${newCart.sale?.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span
                             >
-                            <span class="text-[#888] line-through text-[14px]"
-                                >${newCart.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span
+                            <span id="prices" class="text-[#888] line-through text-[14px]"
+                                >${newCart.price?.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span
                             >
                             <span
                                 class="py-[5px] px-[10px] bg-red-600 text-white capitalize ml-[10px] rounded-lg inline-block"
                             >
-                                giảm 30%
+                                giảm ${((newCart.price-newCart.sale)/newCart.price *100).toFixed(0)}%
                             </span>
                             </div>
 
-                            <div class="flex justify-between mt-[10px] w-full max-w-[180px]">
-                                <span class="text-[20px] border-[1px] border-[#505050] w-full border-r-[0px] text-center cursor-pointer outline-none" id="cong"> + </span>
-                                    <input type="number" class="outline-none text-[14px] text-[#333] max-w-[90px] text-center pl-[25px]" id="amount" disabled value="${newCart.amount}">
-                                <span class="text-[20px] border-[1px] border-[#505050] w-full border-l-[0px] text-center cursor-pointer outline-none" id="tru"> - </span>
-                                <!--  -->
+                            <div class="flex justify-between mt-[10px] w-full max-w-[180px]">Số lượng
+                                        <input type="number" class="outline-none text-[14px] text-[#333] max-w-[90px] text-center pl-[25px]" id="amount" disabled value="${newCart.amount}">
+                                    
+                            <!--  -->
                             </div>
                         </div>
                         <div>
@@ -66,14 +66,15 @@ const cartProducts = {
                             </button>
                         </div>
                         </div>
-                        `).join("")}
+                        
                         <div class="mt-[50px] shadow-lg p-[20px]">
                         <div class="flex justify-between">
                             <h3 class="text-[18px] capitalize font-medium">
                             tổng tiền tạm tính:
                             </h3>
-                            <span class="text-red-500 text-[16px] font-bold">17.820.000 ₫</span>
+                            <span class="text-red-500 text-[16px] font-bold">${(newCart.amount * newCart.price)?.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span>
                         </div>
+                        `).join("")}
                         <button
                             class="block bg-red-500 w-full mt-[10px] py-[15px] text-white capitalize font-bold transition delay-150 duration-300 ease-in-out hover:bg-red-600 rounded-lg"
                         >
@@ -106,6 +107,7 @@ const cartProducts = {
             })
         })
     }
+
 }
 
 export default cartProducts
