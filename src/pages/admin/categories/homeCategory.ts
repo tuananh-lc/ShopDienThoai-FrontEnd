@@ -72,6 +72,8 @@ const HomeCategories = {
         `
     },
     afterRender() {
+        $$("#category").classList.add("text-active")
+        $$("#category").classList.add("bg-blue-500")
         const btns = document.querySelectorAll('#btn-remove');
         btns.forEach((btn:any)=>{
             btn.addEventListener('click', async function () {

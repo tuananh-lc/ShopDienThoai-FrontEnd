@@ -177,6 +177,7 @@ const Signin = {
             }
             
             const result = await signin(user)
+            localStorage.setItem("user", JSON.stringify(result.data))
             console.log(result);
             
             if(result.data.user.role === 0){

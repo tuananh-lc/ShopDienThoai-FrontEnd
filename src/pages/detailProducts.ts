@@ -3,7 +3,7 @@ import { ProductsGet, ProductsGetOne } from "../api/products"
 import Foodter from "../components/footer/footer"
 import HeaderUser from "../components/Header/User"
 import { ListProducts } from "../Interface/IProducts"
-import { $$ } from "./utilities/utiliti"
+import { $$, reRender } from "./utilities/utiliti"
 import { AddressGetOne, AddressGetAll } from "../api/address"
 import { IAddress } from "../Interface/IAddress"
 import {findIndex} from 'lodash'
@@ -252,9 +252,13 @@ const DetailProducts = {
  
           const cart = JSON.parse(localStorage.getItem("cart"))
             if(cart) {
-                const index = cart.findIndex(x => x._id === productCart._id)
+                const index = cart.findIndex((x:any) => x._id === productCart._id)
                 if (index === -1) {
                     cart.push(productCart)
+                    reRender(DetailProducts, "#app")
+                    confirm("Thêm sản phẩm thành công")
+                }else{
+                    confirm("Sản phẩm đã có trong cửa hàng")
                 }
                 localStorage.setItem("cart",JSON.stringify([...cart]))
             } else {
