@@ -1,7 +1,6 @@
-import { signup } from "../../api/auth"
 import { search } from "../../api/search"
 import homePage from "../../pages/home"
-import Signup from "../../pages/signup"
+import Signin from "../../pages/signin"
 import { $$, reRender } from "../../pages/utilities/utiliti"
 
 const HeaderUser = {
@@ -10,7 +9,7 @@ const HeaderUser = {
         // console.log("carts",carts);
         const user = JSON.parse(localStorage.getItem("user"))
         return `
-                <header class="bg-red-600 w-full fixed top-0 left-0 z-50">
+                <header class="bg-red-600 w-full fixed top-0 left-0 z-50" id="headuser">
                 <section
                 class="max-w-[1240px] m-auto py-[15px] md:px-[0px] px-[15px] flex justify-between items-center"
                 >

@@ -54,10 +54,10 @@ const DetailProducts = {
                         <!--  -->
                         <div class="mx-[20px] md:mx-0 md:ml-[20px] md:max-w-[475px] w-full">
                         <div class="mt-[20px] md:mt-0">
-                            <span class="text-[18px] font-bold text-red-500">${product.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span>
+                            <span class="text-[18px] font-bold text-red-500">${product.sale.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span>
                             <span
                             class="text-[16px] text-[#4d4d4d] font-medium line-through ml-[10px]"
-                            >${product.sale.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span
+                            >${product.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span
                             >
                             <span class="bg-red-500 ml-[10px] py-[5px] px-[15px] text-[14px] text-white rounded-md capitalize">
                                 giảm ${total}%
@@ -159,7 +159,7 @@ const DetailProducts = {
                         </div>
                         <div>
                         
-                        <div class="overflow-hidden flex items-start">
+                        <div class="w-full flex flex-wrap items-start">
                             ${similarProduct.data.products.map((item:any)=>`
                                 <div class="max-w-[200px] mr-[60px]">
                                 <a
@@ -255,8 +255,8 @@ const DetailProducts = {
                 const index = cart.findIndex((x:any) => x._id === productCart._id)
                 if (index === -1) {
                     cart.push(productCart)
-                    reRender(DetailProducts, "#app")
                     confirm("Thêm sản phẩm thành công")
+                    reRender(HeaderUser, "#headuser")
                 }else{
                     confirm("Sản phẩm đã có trong cửa hàng")
                 }

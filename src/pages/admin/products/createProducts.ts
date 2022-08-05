@@ -154,7 +154,8 @@ const createProducts = {
                 feature:$$("#outstanding").value,
                 descriptionLong:$$("#descLong").value,
                 descriptionShort:$$("#descSort").value,
-              }
+                ishidden:true
+            }
            console.log(product);
             const result = await CreatrProducts(product)
             if(result){
