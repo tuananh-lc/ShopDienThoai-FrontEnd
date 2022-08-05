@@ -9,7 +9,7 @@ const HomeUsers = {
     async render() {
         const usersData = await userGetAll()
         const users:IUsers[] = usersData.data
-        return`
+        return /*html*/`
             ${HeaderAdmin.render()}
             <div class="flex justify-between px-[30px] mt-[100px]">
                 ${Sidebar.render()}
@@ -20,7 +20,7 @@ const HomeUsers = {
                             <h3 class="capitalize text-[#545454] text-[20px] font-bold">danh sách danh mục sản phẩm</h3>
                         </div>
                         <div class="flex items-center mr-[20px] text-[30px] ">
-                            <a href="/signup"><i class="fa-solid fa-plus  border-[#00B0D7] border-[3px] p-[6px] cursor-pointer text-[#00B0D7]"></i></a>
+                            <a href="/admin/createuser"><i class="fa-solid fa-plus  border-[#00B0D7] border-[3px] p-[6px] cursor-pointer text-[#00B0D7]"></i></a>
                         </div>
                     </div>
                     <div class="overflow-x-auto relative shadow-md sm:rounded-lg mt-[20px]">
@@ -77,12 +77,12 @@ const HomeUsers = {
             btn.addEventListener('click', async function () {
                 const btnId = this.getAttribute("data-id")
  
-                const confirm =window.confirm("Bạn chắc có muốn xóa bản phẩm này?")
+                const confirm =window.confirm("Bạn chắc có muốn xóa tài khoản này?")
                 if(confirm){
                     const result = await RemoveUser(btnId)
                     if (result) {
                     reRender(HomeUsers, "#app")
-                    alert("Xóa danh mục sản phẩm thành công")
+                    alert("Xóa tài khoản thành công")
                 }
                 }
                 
