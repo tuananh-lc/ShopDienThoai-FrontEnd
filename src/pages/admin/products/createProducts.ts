@@ -5,7 +5,6 @@ import HeaderAdmin from "../../../components/Header/Admin"
 import Sidebar from "../../../components/Sidebar/slibarAdmin"
 import { ICategory } from "../../../Interface/ICategorys"
 import { $$ } from "../../utilities/utiliti"
-import homeProducts from "./homeProducts"
 
 const createProducts = {
     async render() {

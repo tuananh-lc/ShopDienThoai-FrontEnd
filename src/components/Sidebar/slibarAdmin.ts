@@ -14,7 +14,11 @@ const Sidebar = {
         <li class="flex pl-[8px] items-center mt-[10px] hover:bg-pkBlue hover:text-[#515151] font-medium delay-150 rounded-md text-[#9b9b9b]" id="category">
         <i class="fa-solid fa-align-justify text-[30px] mr-[10px]"></i>
         <a class="w-full h-full my-[15px]" href="/admin/category">Danh mục sản phẩm</a>
-      </li>
+        </li>
+        <li class="flex pl-[8px] items-center mt-[10px] hover:bg-pkBlue hover:text-[#515151] font-medium delay-150 rounded-md text-[#9b9b9b]" id="users">
+        <i class="fa-solid fa-users text-[30px] mr-[10px]"></i>
+        <a class="w-full h-full my-[15px]" href="/admin/users">Danh sách tài khoản</a>
+        </li>
         
       </ul>
     </div>
