@@ -1,0 +1,3 @@
+input:not(:placeholder-shown)~.searchSelect {
+    background-color: black;
+}

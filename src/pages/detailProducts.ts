@@ -1,34 +1,38 @@
-import { CategoryGetOne } from "../api/categorys"
-import { ProductsGet, ProductsGetOne } from "../api/products"
-import Foodter from "../components/footer/footer"
-import HeaderUser from "../components/Header/User"
-import { ListProducts } from "../Interface/IProducts"
-import { $$, reRender } from "./utilities/utiliti"
-import { AddressGetOne, AddressGetAll } from "../api/address"
-import { IAddress } from "../Interface/IAddress"
-import {findIndex} from 'lodash'
-
+import { CategoryGetOne } from "../api/categorys";
+import { ProductsGet, ProductsGetOne } from "../api/products";
+import Foodter from "../components/footer/footer";
+import HeaderUser from "../components/Header/User";
+import { ListProducts } from "../Interface/IProducts";
+import { $$, reRender } from "./utilities/utiliti";
+import { AddressGetOne, AddressGetAll } from "../api/address";
+import { IAddress } from "../Interface/IAddress";
+import { findIndex } from "lodash";
 
 const DetailProducts = {
-    async render(id:string) {
-        const productsData = await ProductsGet(id)
-        const product:ListProducts = productsData.data
-        console.log(product);
-        
-        const addressData = await AddressGetAll()
-        const address:IAddress[] = addressData.data
-        const htmladdress = address.map(item => `
-              <option value="${item._id}">${item.name}</option>
-        `)
-        // console.log(address);
+  async render(id: string) {
+    const productsData = await ProductsGet(id);
+    const product: ListProducts = productsData.data;
+    console.log(product);
 
-        const idCategory = product.categoryId;
-        // console.log(idCategory);
-        const similarProduct = await CategoryGetOne(idCategory);
-        // console.log(similarProduct.data.products);
-        const total = ((product.price - product.sale) / product.price * 100).toFixed(0)
-        console.log(total);
-        return /*html*/`
+    const addressData = await AddressGetAll();
+    const address: IAddress[] = addressData.data;
+    const htmladdress = address.map(
+      (item) => `
+              <option value="${item._id}">${item.name}</option>
+        `
+    );
+    // console.log(address);
+
+    const idCategory = product.categoryId;
+    // console.log(idCategory);
+    const similarProduct = await CategoryGetOne(idCategory);
+    // console.log(similarProduct.data.products);
+    const total = (
+      ((product.price - product.sale) / product.price) *
+      100
+    ).toFixed(0);
+    console.log(total);
+    return /*html*/ `
             ${HeaderUser.render()}
 
             <section class="max-w-[1240px] m-auto md:mt-[100px] mt-[80px]">
@@ -54,10 +58,16 @@ const DetailProducts = {
                         <!--  -->
                         <div class="mx-[20px] md:mx-0 md:ml-[20px] md:max-w-[475px] w-full">
                         <div class="mt-[20px] md:mt-0">
-                            <span class="text-[18px] font-bold text-red-500">${product.sale.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span>
+                            <span class="text-[18px] font-bold text-red-500">${product.sale.toLocaleString(
+                              "vi",
+                              { style: "currency", currency: "VND" }
+                            )}</span>
                             <span
                             class="text-[16px] text-[#4d4d4d] font-medium line-through ml-[10px]"
-                            >${product.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</span
+                            >${product.price.toLocaleString("vi", {
+                              style: "currency",
+                              currency: "VND",
+                            })}</span
                             >
                             <span class="bg-red-500 ml-[10px] py-[5px] px-[15px] text-[14px] text-white rounded-md capitalize">
                                 giảm ${total}%
@@ -160,10 +170,12 @@ const DetailProducts = {
                         <div>
                         
                         <div class="w-full flex flex-wrap items-start">
-                            ${similarProduct.data.products.map((item:any)=>`
+                            ${similarProduct.data.products
+                              .map(
+                                (item: any) => `
                                 <div class="max-w-[200px] mr-[60px]">
                                 <a
-                                    href="/detailproducts/${item._id}"
+                                    href="/#/detailproducts/${item._id}"
                                     class="group hover:shadow-lg px-[15px] py-[25px] rounded-md"
                                 >
                                     <div
@@ -180,13 +192,21 @@ const DetailProducts = {
                                     ${item.name}
                                     </h3>
                                     <div class="mt-[10px] flex justify-start items-center">
-                                        <p class="text-red-500">${item.sale.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</p>
-                                        <p class="text-gray-500 ml-2 line-through">${item.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</p>
+                                        <p class="text-red-500">${item.sale.toLocaleString(
+                                          "vi",
+                                          { style: "currency", currency: "VND" }
+                                        )}</p>
+                                        <p class="text-gray-500 ml-2 line-through">${item.price.toLocaleString(
+                                          "vi",
+                                          { style: "currency", currency: "VND" }
+                                        )}</p>
                                     </div>
                                     </div>
                                 </a>
                                 </div>
-                            `).join("")}
+                            `
+                              )
+                              .join("")}
                         </div>
                         
                         </div>
@@ -211,77 +231,83 @@ const DetailProducts = {
                     </div>
                   </section>
                   ${Foodter.render()}
-        `
-    },
-    async afterRender(id:String){
-        const productData = await ProductsGetOne(id)
-        const product:ListProducts = productData.data
-              
-        $$("#amount").value = 1
-        $$("#cong").addEventListener("click", function() {
-            const numberString = $$("#amount").value
-            let number:number = parseInt(numberString)
-            $$("#amount").value = number + 1
-            if($$("#amount").value > 12){
-                $$("#amount").value = 12
-                confirm('Tối đa 12 sản phẩm')
-            }
-        })
-        $$("#tru").addEventListener("click", function() {
-            $$("#amount").value -= 1
-            if($$("#amount").value < 1){
-                $$("#amount").value = 1
-            }
-        })
+        `;
+  },
+  async afterRender(id: String) {
+    const productData = await ProductsGetOne(id);
+    const product: ListProducts = productData.data;
 
-        $$("#btn-tocart").addEventListener("click", function(e:any) {
-            e.preventDefault()
-            const amount = $$("#amount").value
-            parseInt(amount)
-            
-            const productCart = {
-                _id:product._id,
-                name:product.name,
-                price:product.price,
-                sale:product.sale,
-                image:product.image,
-                feature:product.feature,
-                amount:parseInt(amount)
-            }
-            // get existed data
- 
-          const cart = JSON.parse(localStorage.getItem("cart"))
-            if(cart) {
-                const index = cart.findIndex((x:any) => x._id === productCart._id)
-                if (index === -1) {
-                    cart.push(productCart)
-                    confirm("Thêm sản phẩm thành công")
-                    reRender(HeaderUser, "#headuser")
-                }else{
-                    confirm("Sản phẩm đã có trong cửa hàng")
-                }
-                localStorage.setItem("cart",JSON.stringify([...cart]))
-            } else {
-                localStorage.setItem("cart",JSON.stringify([productCart]))
-            }
-            const newCart = JSON.parse(localStorage.getItem("cart"))
-            console.log(newCart, "localstorage");
-            
-            
-                
-        })
+    $$("#amount").value = 1;
+    $$("#cong").addEventListener("click", function () {
+      const numberString = $$("#amount").value;
+      let number: number = parseInt(numberString);
+      $$("#amount").value = number + 1;
+      if ($$("#amount").value > 12) {
+        $$("#amount").value = 12;
+        confirm("Tối đa 12 sản phẩm");
+      }
+    });
+    $$("#tru").addEventListener("click", function () {
+      $$("#amount").value -= 1;
+      if ($$("#amount").value < 1) {
+        $$("#amount").value = 1;
+      }
+    });
 
+    $$("#btn-tocart").addEventListener("click", function (e: any) {
+      e.preventDefault();
+      const amount = $$("#amount").value;
+      parseInt(amount);
 
-        const showAddress = $$("#showAddress")
-    
-        $$('#addressdetail')?.addEventListener('click',async function () {
-       
-           const idData =  this.value
-           const resultData = await AddressGetOne(idData)
-           const htmlsaddressdetail = resultData.data.detailAdd
-           console.log(htmlsaddressdetail);
-           
-               const result = htmlsaddressdetail.map((item:any) => /*html*/`
+      const productCart = {
+        _id: product._id,
+        name: product.name,
+        price: product.price,
+        sale: product.sale,
+        image: product.image,
+        feature: product.feature,
+        amount: parseInt(amount),
+      };
+      // get existed data
+
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      if (cart) {
+        const index = cart.findIndex((x: any) => x._id === productCart._id);
+        if (index === -1) {
+          cart.push(productCart);
+          if (confirm("Thêm sản phẩm thành công")) {
+            location.href = `/detailproducts/${id}`;
+          }
+        } else {
+          //   let currentItem = cart.find((item) => item._id === productCart._id);
+          //   currentItem = productCart;
+          cart = cart.map((item) => {
+            if (item._id === productCart._id) {
+              item = productCart;
+            }
+            return item;
+          });
+          confirm("Sản phẩm đã có trong giỏ hàng");
+        }
+        localStorage.setItem("cart", JSON.stringify([...cart]));
+      } else {
+        localStorage.setItem("cart", JSON.stringify([productCart]));
+      }
+      const newCart = JSON.parse(localStorage.getItem("cart"));
+      console.log(newCart, "localstorage");
+    });
+
+    const showAddress = $$("#showAddress");
+
+    $$("#addressdetail")?.addEventListener("click", async function () {
+      const idData = this.value;
+      const resultData = await AddressGetOne(idData);
+      const htmlsaddressdetail = resultData.data.detailAdd;
+      console.log(htmlsaddressdetail);
+
+      const result = htmlsaddressdetail
+        .map(
+          (item: any) => /*html*/ `
                
                <div
                    class="mt-[10px] flex items-center p-[20px] md:p-[5px] md:justify-between"
@@ -297,16 +323,20 @@ const DetailProducts = {
                </div>
               
              
-               `).join("")
-               showAddress.innerHTML = result
-           })
+               `
+        )
+        .join("");
+      showAddress.innerHTML = result;
+    });
 
-           const idData =  $$('#addressdetail').value
-           const resultData = await AddressGetOne(idData)
-           const htmlsaddressdetail = resultData.data.detailAdd
-           console.log(htmlsaddressdetail);
-           
-               const result = htmlsaddressdetail.map((item:any) => /*html*/`
+    const idData = $$("#addressdetail").value;
+    const resultData = await AddressGetOne(idData);
+    const htmlsaddressdetail = resultData.data.detailAdd;
+    console.log(htmlsaddressdetail);
+
+    const result = htmlsaddressdetail
+      .map(
+        (item: any) => /*html*/ `
                
                <div
                    class="mt-[10px] flex items-center p-[20px] md:p-[5px] md:justify-between"
@@ -322,21 +352,20 @@ const DetailProducts = {
                </div>
               
              
-               `).join("")
-               showAddress.innerHTML = result
+               `
+      )
+      .join("");
+    showAddress.innerHTML = result;
 
+    $$("#btn-blockDesc").addEventListener("click", function () {
+      $$("#descLong").classList.remove("hidden");
+      this.classList.add("hidden");
+    });
+    $$("#descLong").addEventListener("click", function () {
+      this.classList.add("hidden");
+      $$("#btn-blockDesc").classList.remove("hidden");
+    });
+  },
+};
 
-    $$("#btn-blockDesc").addEventListener('click', function() {
-        $$("#descLong").classList.remove("hidden")
-        this.classList.add("hidden")
-    })
-    $$("#descLong").addEventListener('click', function() {
-        this.classList.add("hidden")
-        $$("#btn-blockDesc").classList.remove("hidden")
-    })
-
-    }
-
-}
-
-export default DetailProducts
+export default DetailProducts;

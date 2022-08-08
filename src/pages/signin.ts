@@ -2,8 +2,8 @@ import { signin } from "../api/auth";
 import { $$ } from "./utilities/utiliti";
 
 const Signin = {
-    render() {
-        return`
+  render() {
+    return `
         <section class="h-screen">
         <div class="px-6 h-full text-gray-800">
           <div
@@ -19,6 +19,7 @@ const Signin = {
               />
             </div>
             <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
+              <div class="text-right text-[22px] text-red-500"><a href="/#/"><i class="fa-solid fa-xmark"></i></a></div>
               <div class="text-center mb-[30px]"><h2 class="uppercase tracking-normal text-3xl font-semibold text-gray-800">Signin</h2></div>  
             <form>
                 <div class="flex flex-row items-center justify-center lg:justify-start">
@@ -102,19 +103,6 @@ const Signin = {
                   <span class="error-input block text-red-500 text-xs ml-[10px] mt-[5px]"><span>
                 </div>
       
-                <div class="flex justify-between items-center mb-6">
-                  <div class="form-group form-check">
-                    <input
-                      type="checkbox"
-                      class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                      id="exampleCheck2"
-                    />
-                    <label class="form-check-label inline-block text-gray-800" for="exampleCheck2"
-                      >Remember me</label
-                    >
-                  </div>
-                  <a href="#!" class="text-gray-800">Forgot password?</a>
-                </div>
       
                 <div class="text-center lg:text-left">
                   <button
@@ -127,7 +115,7 @@ const Signin = {
                   <p class="text-sm font-semibold mt-2 pt-1 mb-0">
                     Don't have an account?
                     <a
-                      href="/signup"
+                      href="/#/signup"
                       class="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out"
                       >Signup</a
                     >
@@ -138,64 +126,62 @@ const Signin = {
           </div>
         </div>
       </section>
-        `
-    },
-    async afterRender() {
-      let checkValidate = false
-      $$(".check-error").forEach((item:any, index:number) => {
-          item.onblur = () => {
-              if(item.value) {
-                  $$(".error-input")[index].innerHTML = ""
-                  checkValidate = true
-              }else{
-                  $$(".error-input")[index].innerHTML = "Giá trị chưa được nhập";
-                  checkValidate = false
-              }
-          }            
+        `;
+  },
+  async afterRender() {
+    let checkValidate = false;
+    $$(".check-error").forEach((item: any, index: number) => {
+      item.onblur = () => {
+        if (item.value) {
+          $$(".error-input")[index].innerHTML = "";
+          checkValidate = true;
+        } else {
+          $$(".error-input")[index].innerHTML = "Giá trị chưa được nhập";
+          checkValidate = false;
+        }
+      };
+    });
+
+    $$("#btnSubmit").addEventListener("click", function (e: any) {
+      e.preventDefault();
+      $$(".check-error").forEach((item: any, index: any) => {
+        if (item.value.trim() === "" || item.value == null) {
+          $$(".error-input")[index].innerHTML = "Giá trị chưa được nhập";
+          checkValidate = false;
+        } else {
+          $$(".error-input")[index].innerHTML = "";
+          checkValidate = true;
+        }
       });
-      
-      $$("#btnSubmit").addEventListener('click', function(e:any) {
-          e.preventDefault()
-          $$(".check-error").forEach((item:any, index:any) => {                
-              if(item.value.trim() === "" || item.value == null) {
-                  $$(".error-input")[index].innerHTML = "Giá trị chưa được nhập"
-                  checkValidate = false
-              }else{
-                  $$(".error-input")[index].innerHTML = "";
-                  checkValidate = true
-              }
-          })
-      })
+    });
 
-      $$("#btnSubmit").addEventListener("click", async function(e:any) {
-          e.preventDefault()
+    $$("#btnSubmit").addEventListener("click", async function (e: any) {
+      e.preventDefault();
 
-          if(checkValidate){
-            const user = {
-              email: $$('#email').value,
-              password: $$('#password').value,
-            }
-            
-            const result = await signin(user)
-            localStorage.setItem("user", JSON.stringify(result.data))
-            console.log(result);
-            
-            if(result.data.user.role === 0){
-                confirm("Đăng nhập thành công")
-                setTimeout(function() {
-                    location.href = "/"
-                },3000)
-            }else{
-              confirm("hello admin")
-              setTimeout(function() {
-                location.href = "/admin"
-              },3000)
-            }
-                    
-          }
-          
-      })
-    }
-}
+      if (checkValidate) {
+        const user = {
+          email: $$("#email").value,
+          password: $$("#password").value,
+        };
+
+        const result = await signin(user);
+        localStorage.setItem("user", JSON.stringify(result.data));
+        console.log(result);
+
+        if (result.data.user.role === 0) {
+          confirm("Đăng nhập thành công");
+          setTimeout(function () {
+            location.href = "/#/";
+          }, 1000);
+        } else {
+          confirm("hello admin");
+          setTimeout(function () {
+            location.href = "/#/admin";
+          }, 1000);
+        }
+      }
+    });
+  },
+};
 
 export default Signin;
