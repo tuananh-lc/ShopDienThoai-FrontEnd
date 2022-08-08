@@ -1,21 +1,29 @@
-import { UsersGetAll } from "../../../api/auth"
-import { ProductsGetAll } from "../../../api/products"
-import HeaderAdmin from "../../../components/Header/Admin"
-import Sidebar from "../../../components/Sidebar/slibarAdmin"
-import { ListProducts } from "../../../Interface/IProducts"
-import { IUsers } from "../../../Interface/IUsers"
-import { $$ } from "../../utilities/utiliti"
+import { UsersGetAll } from "../../../api/auth";
+import { ProductsGetAll } from "../../../api/products";
+import HeaderAdmin from "../../../components/Header/Admin";
+import Sidebar from "../../../components/Sidebar/slibarAdmin";
+import { ListProducts } from "../../../Interface/IProducts";
+import { IUsers } from "../../../Interface/IUsers";
+import { $$ } from "../../utilities/utiliti";
 
 const dashboard = {
-    async render() {
-        const productsData = await ProductsGetAll()
-        const products= productsData.data
-        const usersData = await UsersGetAll()
-        const Users:IUsers = usersData.data
-        const htmlUsers= Users.length
-        // console.log(htmlUsers);
-        
-        return`
+  async render() {
+    const productsData = await ProductsGetAll();
+    const products = productsData.data;
+    const usersData = await UsersGetAll();
+    const Users: IUsers = usersData.data;
+    const htmlUsers = Users.length;
+    // console.log(htmlUsers);
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      if (user.user.role !== 1) {
+        location.href = "/#/";
+      }
+    } else {
+      location.href = "/#/";
+    }
+
+    return `
             ${HeaderAdmin.render()}
 
             <div class="flex justify-between px-[30px] mt-[100px]">
@@ -43,7 +51,9 @@ const dashboard = {
                             <a class="inline-block w-full" href="#">
                                 <div class="mt-[10px] mr-[30px]">
                                     <p class="uppercase text-[20px] text-[#999999] font-bold">sản phẩm</p> 
-                                    <h3 class="capitalize mt-[5px] text-[20px] text-[#333] font-medium">${products.length} sản phẩm</h3>
+                                    <h3 class="capitalize mt-[5px] text-[20px] text-[#333] font-medium">${
+                                      products.length
+                                    } sản phẩm</h3>
                                 </div>
                             </a>
                         </div>
@@ -52,13 +62,22 @@ const dashboard = {
                         
                 </div>
             </div>
-        `
-    },
-    afterRender() {
-        $$("#home").classList.add("text-active")
-        $$("#home").classList.add("bg-blue-500")
-        $$("#home").classList.add("hover:none")
-    }
-}
+        `;
+  },
+  afterRender() {
+    $$("#home").classList.add("text-active");
+    $$("#home").classList.add("bg-blue-500");
+    $$("#home").classList.add("hover:none");
 
-export default dashboard
+    if ($$("#OutAdmin")) {
+      $$("#OutAdmin").addEventListener("click", function () {
+        localStorage.removeItem("user");
+        setTimeout(function () {
+          location.href = "/#/signin";
+        }, 1000);
+      });
+    }
+  },
+};
+
+export default dashboard;

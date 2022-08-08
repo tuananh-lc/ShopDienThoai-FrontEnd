@@ -29,16 +29,6 @@ const UpdateUser = {
                                     <span class="error-input block text-red-500 text-xs "><span>
                                 </div>
 
-                                <div class="mt-[10px]">
-                                    <label for="name" class="capitalize text-[16px] leading-[19px] text-[#5A6169]">gmail</label><br>
-                                    <input type="text" id="email" class="check-validate w-full mt-[5px] h-[35px] rounded-sm outline-0 pl-[10px]" value="${User.email}">
-                                    <span class="error-input block text-red-500 text-xs "><span>
-                                </div>
-
-                                <div class="mt-[10px]">
-                                <label for="name" class="capitalize text-[16px] leading-[19px] text-[#5A6169]">password</label><br>
-                                <input type="text" id="password" class="check-validate w-full mt-[5px] h-[35px] rounded-sm outline-0 pl-[10px]" value="${User.password}">
-                                <span class="error-input block text-red-500 text-xs "><span>
                             </div>
 
                             <div class="mt-[10px]">
@@ -69,8 +59,6 @@ const UpdateUser = {
             const users = {
                 _id: id,
                 name: document.getElementById('name')?.value,
-                email: document.getElementById('email')?.value,
-                password: document.getElementById('password')?.value,
                 role: Number(document.getElementById('role')?.value)
             };
             console.log(users);

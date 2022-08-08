@@ -1,13 +1,12 @@
 import { $$, reRender } from "../../pages/utilities/utiliti";
 
 const HeaderAdmin = {
-	render() {
-		const user = JSON.parse(localStorage.getItem("user"))
-		return (
-            /*html*/`
+  render() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return /*html*/ `
                 <div class="fixed top-0 w-full">
 					<div class="flex bg-pkBlue justify-between items-center px-[30px]">
-					<a href="/admin">
+					<a href="/#/admin">
 						<img class="max-w-[120px] w-full" src="https://cdn-img-v2.webbnc.net/uploadv2/web/82/8269/news/2020/11/19/11/03/1605753605_23578.png
 						">
 					</a>
@@ -17,23 +16,18 @@ const HeaderAdmin = {
 					</div>
 					<div>
 						<h2 class="capitalize text-[20px] leading-[30px] font-medium text-[#fff]">
-							${user.user.name}
-							<button class="text-white ml-[5px] hover:text-blue-800" id="OutAdmin" >${user?`<i class="fa-solid fa-arrow-right-from-bracket"></i>`:""}</button>
+							${user ? user.user.name : (location.href = "/")}
+							<button class="text-white ml-[5px] hover:text-blue-800" id="OutAdmin" >${
+                user
+                  ? `<i class="fa-solid fa-arrow-right-from-bracket"></i>`
+                  : ""
+              }</button>
 						</h2>
 					</div>
 					</div>
 				</div>
-            `
-		)
-	},
-	afterRender() {
-		console.log(123);
-		
-		const outAdmin = document.querySelector("#OutAdmin")
-		console.log(outAdmin);
-		
-		
-	}
-}
+            `;
+  },
+};
 
-export default HeaderAdmin
+export default HeaderAdmin;

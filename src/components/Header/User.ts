@@ -1,21 +1,66 @@
-import { search } from "../../api/search"
-import homePage from "../../pages/home"
-import Signin from "../../pages/signin"
-import { $$, reRender } from "../../pages/utilities/utiliti"
+import { search } from "../../api/search";
+import Signin from "../../pages/signin";
+import { $$, reRender } from "../../pages/utilities/utiliti";
 
 const HeaderUser = {
-    render() {
-        const carts = JSON.parse(localStorage.getItem("cart"))
-        // console.log("carts",carts);
-        const user = JSON.parse(localStorage.getItem("user"))
-        return `
+  render() {
+    const carts = JSON.parse(localStorage.getItem("cart"));
+    // console.log("carts",carts);
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+
+    let checkUser;
+    if (user?.user.role == 1) {
+      checkUser = `
+        <div
+        class="relative hidden md:block transition ease-in-out delay-150 bg-[#ffffff3d] leading-[50px] px-[20px] rounded-lg"
+        >
+          <a href="/#/admin">
+                <i class="fa-solid fa-user-tie text-[18px] text-[#fff]"></i>
+                
+                <span class="capitalize text-[13px] text-[#fff]">${user.user.name}</span>
+          </a>
+          <button class="text-white ml-[5px] hover:text-red-800" id="outUser"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </div>
+    `;
+    }
+    if (user?.user.role == 0) {
+      checkUser = `
+        <div
+        class="relative hidden md:block transition ease-in-out delay-150 bg-[#ffffff3d] leading-[50px] px-[20px] rounded-lg"
+        >
+          <a href="/#/personal">
+                <i class="fa-solid fa-user-tie text-[18px] text-[#fff]"></i>
+                
+                <span class="capitalize text-[13px] text-[#fff]">${user.user.name}</span>
+          </a>
+          <button class="text-white ml-[5px] hover:text-red-800" id="outUser"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </div>
+    `;
+    }
+    if (!user) {
+      checkUser = `
+        <div
+        class="relative hidden md:block transition ease-in-out delay-150 bg-[#ffffff3d] leading-[50px] px-[20px] rounded-lg"
+        >
+          <a href="/#/signin">
+                <i class="fa-solid fa-user-tie text-[18px] text-[#fff]"></i>
+                
+                <span class="capitalize text-[13px] text-[#fff]">signin</span>
+          </a>
+          <button class="text-white ml-[5px] hover:text-red-800" id="outUser"></button>
+        </div>
+    `;
+    }
+
+    return `
                 <header class="bg-red-600 w-full fixed top-0 left-0 z-50" id="headuser">
                 <section
                 class="max-w-[1240px] m-auto py-[15px] md:px-[0px] px-[15px] flex justify-between items-center"
                 >
                 <div class="md:mr-[10px]">
 
-                    <a href="/">
+                    <a href="/#/">
                         <img
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAhIAAABfCAYAAAC9ZC4kAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6REQzNUE1OThENjI3MTFFQUJDOTI5NjNDMjAyQkNFMkQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6REQzNUE1OTlENjI3MTFFQUJDOTI5NjNDMjAyQkNFMkQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpERDM1QTU5NkQ2MjcxMUVBQkM5Mjk2M0MyMDJCQ0UyRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpERDM1QTU5N0Q2MjcxMUVBQkM5Mjk2M0MyMDJCQ0UyRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PtMJt2kAAAPtSURBVHja7Nzbbts6FEDB0ND//zL7mhg1oqoSuS8zjwdBj8SbV4RYY875BQBwxcsQAABCAgAQEgCAkAAAhAQAgJAAAB5wGIJyznyfdwT4N7vPg/GCOGdid/91HnkiYWPZhHvG17gCJXgiAYDfuv3Sc5knEgCAkAAAhAQAICQAACEBACAkAAAhAQAICQCgBi+kAoCfMr95dvmLtzyRAACEBAAgJAAAIQEACAkAACEBAAgJAEBIAABCAgBo7uk3W+54O9hIeu3Dcty2ZnaN/yx6b7PovM3C69F5l/M+QryB86h8c8muezaPihno/z8Kj+0oNn9P39s0Z/Zb8JDZ/nl7FFqYla57NtpgM/A1jaLjPYrO393zNt2X/SYmfvd6YDH4IDOmVe5vFh73WXh8ZpDxibgenXeEDQkRYXOJnV73JgLNmXmLY+vTHN/awIFB1bmb1iViIkdIeBrhWn1wujdjIZCczU1j4uh2wwGu28F9fQxGwY1v7p7/APVHfM67p/dE6zV2JFuUFaJn+FAz/o0Owifmzrzlm7Pq89Y6JlaGxAg26RGue3w5FLuP/9i4trPO3RPzNjff45Pz5rwTE4/yx5Z54sf4u7+z/+YIMHaj+Nq4e4w7zFkHLX8xfFmgPiyxtjCuxu6262wXE55IAMT5IBQpseb66pOiVjEhJADgXFSICSEBAMuCokVMCAkAuBYUZ6JiVg8MIbGfr38C5I+KKzFR4vw/rAEf8gDOu1uC4rdwGN9+dr79bNo/tPVEAgDuj4px4mfeQyNlzAkJAHg2KD693v1vsZEuKIQEAKyLijMxkSoohAQArA2KM//tPSjCRoWQAICYgfEpKoQEAHApJsIFha9/3jOpAM47Vgvx1VFPJAAgd9BtfUIhJAAgf0x87YoJIQEAdWJCSAAAeWJiVUh4hzsAFIwJTyQEEIDzTkykCIlpc2Fuja25syeo5bVhkUZYqMPman9YmtOc42zunHcEs+uFVDPQpsmyuTq+LMaBZh7pOWdejpXIq/GEW6hYK/XHwtwZh6shJYAXhgQ4gI2J6wQh0XLDOmgAAcgnnkosDAkxQcVD19rIOT7mznknJpKGROYNbHNhPdQYK3NnjMTEYsfDC3Um3VwWjcOVXPvd/DnvVsSEdbYwJLJv7syLZRQaC+sn17XYNzmvxYejmAgdEgBQLSb4xtc/AQAhAQAICQBASAAAQgIAQEgAAEICABASAICQAACa82ZLAPjJa7D/gScSAICQAACEBAAgJAAAIQEAICQAACEBAAgJAKAGL6QCoINpCIQEdXhrHLDyvBERQgIA/PISkb+RAACEBAAgJAAAIQEAdPBHgAEAruC43nH9c2MAAAAASUVORK5CYII="
                         alt=""
@@ -34,26 +79,30 @@ const HeaderUser = {
                     </div>
                 </div>
                 <div
-                    class="relative bg-[#fff] max-w-[360px] md:max-w-[450px] w-full"
+                    class="bg-[#fff] max-w-[360px] md:max-w-[450px] w-full rounded-lg overflow-hidden"
                 >
                      
                     <form class="flex items-center" id="form-search">   
-                    <label for="voice-search" class="sr-only">Search</label>
-                    <div class="relative w-full">
-                        <input type="text" id="voice-search" class="w-full text-gray-900 text-sm focus:outline-none block w-full pl-10 p-2.5 border-none dark:placeholder-gray-400 dark:text-gray-700" placeholder="Search...">
+                    <div class="relative w-full flex items-center justify-between">
+                        <input id="voice-search" class="inputSelect w-full caret-red-500 border-white h-[40px] outline-0 pl-[20px] text-[#666] text-[14px] last:bg-red-500" placeholder="Search...">
+                        <div class="disabled">
+                          <i class="fa-solid fa-spinner animate-spin hidden" id="loading"></i>
+                        </div>
+                        <div>
+                          <i class="fa-solid fa-circle-xmark text-[#777] font-thin cursor-pointer hidden" id="exitValueSearch"></i>
+                        </div>
                     </div>
-                    <button type="submit" class="text-center transition delay-150 duration-300 ease-in-out py-2.5 px-3 text-sm font-medium hoevr:bg-blue-700  border-non hover:bg-blue-800 text-[#333] hover:dark:bg-blue-600 hover:text-white dark:focus:ring-blue-800"
+
+                    <button type="submit" class="searchSelect text-center transition delay-150 duration-300 ease-in-out py-2.5 px-[0px] text-sm font-medium hoevr:bg-blue-700 border-none text-[#959595]"
                     id="btn-search"
                     >
                         <svg aria-hidden="true" class="mx-[15px] w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </button>
                     </form>
-                    <div class="absolute top-0 left-0 mt-[40px] z-40 bg-white max-w-[450px] w-full" id="divSearch">
-                        
-
-                        
-                    </div>
+                    
+                    
                 </div>
+                    
                 <div class="md:flex">
                     <div class="hidden md:block md:flex">
                     <div class="hover:bg-[#ffffff3d] transition ease-in-out delay-150 max-h-[50px] rounded-lg mx-[10px]">
@@ -100,7 +149,7 @@ const HeaderUser = {
                     <div
                     class="relative bg-[#ffffff3d] transition ease-in-out delay-150 md:bg-inherit md:hover:bg-[#ffffff3d] max-h-[50px] rounded-lg mx-[10px] leading-[50px] flex items-center"
                     >
-                    <a href="/cartproducts" class="">
+                    <a href="/#/cartproducts" class="">
                         <div class="text-center py-[8px] px-[5px]">
                         <i
                             class="fa-solid fa-cart-shopping text-[18px] text-[#fff]"
@@ -109,67 +158,28 @@ const HeaderUser = {
                         </div>
                     </a>
                     <div class="absolute bottom-[3px] left-[11px] max-w-[10px] w-full block ">
-                        <span class=" h-[5px] text-white rounded-2xl px-[3px] bg-red-600 text-[9px]">${carts? carts.length : 0}</span>
+                        <span class=" h-[5px] text-white rounded-2xl px-[3px] bg-red-600 text-[9px]">${
+                          carts ? carts.length : 0
+                        }</span>
                     </div>
                     </div>
                 </div>
-                <div
-                    class="relative hidden md:block transition ease-in-out delay-150 bg-[#ffffff3d] leading-[50px] px-[20px] rounded-lg"
-                >
-                   <a href="/signin">
-                        <i class="fa-solid fa-user-tie text-[18px] text-[#fff]"></i>
-                        
-                        <span class="capitalize text-[13px] text-[#fff]">${user ? user.user.name  : "user"}</span>
-                   </a>
-                   <button class="text-white ml-[5px] hover:text-red-800" id="outUser">${user?`<i class="fa-solid fa-arrow-right-from-bracket"></i>`:""}</button>
-                </div>
+                ${checkUser}
                 
                 </section>
             </header>
-        `
-    },
-    afterRender() {
-        $$("#form-search").addEventListener('submit',async function(e:any) {
-            e.preventDefault()
-            const searchValue = $$("#voice-search").value
-            if(searchValue.trim()){
-                const { data } = await search(searchValue.trim())
-                console.log("search",data);
-                if(data){
-                    const result = data.map((item:any) =>`
-                        <a href="/detailproducts/${item._id}">
-                            <div class="flex justify-evenly items-center shadow-sm hover:shadow-lg px-[30px] py-[20px] my-[10px]">
-                            <div>
-                                <img src="${item.image}"
-                                class="max-w-[120px]"
-                                >
-                            </div>
-                                <div>
-                                    <h3 class="text-[#222] text-[18px] font-medium capitalize">${item.name}</h3>
-                                    <div>
-                                        <span class="text-red-500">${item.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
-                                        <span class="text-[#555] line-through ml-[5px]">${item.sale.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    `).join("")
-                    $$("#divSearch").innerHTML = result
-                }
-                               
-            }else{
-                $$("#divSearch").innerHTML = null
-            }
-           
-        })
+        `;
+  },
+  afterRender() {
+    if ($$("#outUser")) {
+      $$("#outUser").addEventListener("click", function () {
+        localStorage.removeItem("user");
+        setTimeout(function () {
+          location.href = "/#/signin";
+        }, 1000);
+      });
+    }
+  },
+};
 
-        $$("#outUser").addEventListener('click', function() {
-            localStorage.removeItem("user");
-            setTimeout(function() {reRender(Signin, "#app")},2000)
-        })
-        
-    },
-  
-}
-
-export default HeaderUser
+export default HeaderUser;

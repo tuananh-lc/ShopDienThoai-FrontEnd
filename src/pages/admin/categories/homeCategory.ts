@@ -1,17 +1,24 @@
-import { CategoryGetAll, RemoveCategory} from "../../../api/categorys"
-import HeaderAdmin from "../../../components/Header/Admin"
-import { reRender } from "../../utilities/utiliti"
-import Sidebar from "../../../components/Sidebar/slibarAdmin"
-import { ICategory } from "../../../Interface/ICategorys"
-import { $$ } from "../../utilities/utiliti"
+import { CategoryGetAll, RemoveCategory } from "../../../api/categorys";
+import HeaderAdmin from "../../../components/Header/Admin";
+import { reRender } from "../../utilities/utiliti";
+import Sidebar from "../../../components/Sidebar/slibarAdmin";
+import { ICategory } from "../../../Interface/ICategorys";
+import { $$ } from "../../utilities/utiliti";
 
 const HomeCategories = {
-    async render() {
-        const CategoryData = await CategoryGetAll()
-        const categorys:ICategory[] = CategoryData.data
-        // console.log(categorys);
-        
-        return`
+  async render() {
+    const CategoryData = await CategoryGetAll();
+    const categorys: ICategory[] = CategoryData.data;
+    // console.log(categorys);
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      if (user.user.role !== 1) {
+        location.href = "/#/";
+      }
+    } else {
+      location.href = "/#/";
+    }
+    return `
             ${HeaderAdmin.render()}
             <div class="flex justify-between px-[30px] mt-[100px]">
                 ${Sidebar.render()}
@@ -41,7 +48,9 @@ const HomeCategories = {
                             </tr>
                         </thead>
                         <tbody>
-                        ${categorys.map((category:any, index) => `
+                        ${categorys
+                          .map(
+                            (category: any, index) => `
                                 <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                                         <th scope="row" class="text-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 ${index + 1}
@@ -51,15 +60,21 @@ const HomeCategories = {
                                         </td>
                                     
                                         <td class="py-4 px-6">
-                                        <a href="/admin/category/${category._id}/updatecategory" data-navigo class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
+                                        <a href="/admin/category/${
+                                          category._id
+                                        }/updatecategory" data-navigo class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
                                         <i title="edit" class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <button data-id="${category._id}" data-navigo id="btn-remove" class="ml-[10px] text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
+                                    <button data-id="${
+                                      category._id
+                                    }" data-navigo id="btn-remove" class="ml-[10px] text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
                                         <i title="Remove" class="fa-solid fa-trash"></i>
                                     </button>
                                         </td>
                                 </tr>
-                        `).join("")}
+                        `
+                          )
+                          .join("")}
                         </tbody>
                     </table>
                     </div>
@@ -69,28 +84,27 @@ const HomeCategories = {
 
             </div>
 
-        `
-    },
-    afterRender() {
-        $$("#category").classList.add("text-active")
-        $$("#category").classList.add("bg-blue-500")
-        const btns = document.querySelectorAll('#btn-remove');
-        btns.forEach((btn:any)=>{
-            btn.addEventListener('click', async function () {
-                const btnId = this.getAttribute("data-id")
-                parseInt(btnId)
-                const confirm =window.confirm("Bạn chắc có muốn xóa bản phẩm này?")
-                if(confirm){
-                    const result = await RemoveCategory(btnId)
-                    if (result) {
-                    reRender(HomeCategories, "#app")
-                    alert("Xóa danh mục sản phẩm thành công")
-                }
-                }
-                
-            })
-        });
-    }
-}
+        `;
+  },
+  afterRender() {
+    $$("#category").classList.add("text-active");
+    $$("#category").classList.add("bg-blue-500");
+    const btns = document.querySelectorAll("#btn-remove");
+    btns.forEach((btn: any) => {
+      btn.addEventListener("click", async function () {
+        const btnId = this.getAttribute("data-id");
+        parseInt(btnId);
+        const confirm = window.confirm("Bạn chắc có muốn xóa bản phẩm này?");
+        if (confirm) {
+          const result = await RemoveCategory(btnId);
+          if (result) {
+            reRender(HomeCategories, "#app");
+            alert("Xóa danh mục sản phẩm thành công");
+          }
+        }
+      });
+    });
+  },
+};
 
-export default HomeCategories
+export default HomeCategories;

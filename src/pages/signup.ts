@@ -1,9 +1,9 @@
 import { signup } from "../api/auth";
-import { $$ } from "./utilities/utiliti"
+import { $$ } from "./utilities/utiliti";
 
 const Signup = {
-    render() {
-        return`
+  render() {
+    return `
         <section class="h-screen">
         <div class="px-6 h-full text-gray-800">
           <div
@@ -19,6 +19,7 @@ const Signup = {
               />
             </div>
             <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
+              <div class="text-right text-[22px] text-red-500"><a href="/#/"><i class="fa-solid fa-xmark"></i></a></div>
               <div class="text-center mb-[30px]"><h2 class="uppercase tracking-normal text-3xl font-semibold text-gray-800">Signup</h2></div>  
             <div>
                 <div class="mb-6">
@@ -51,9 +52,12 @@ const Signup = {
                   <span class="error-input block text-red-500 text-xs ml-[10px] mt-[5px]"><span>
                 </div>
       
-                
+                <div>
+                  <span>You already have an account!</span>
+                  <a href="/#/signin" class="text-red-600 capitalize">signin</a>
+                </div>
       
-                <div class="text-center lg:text-left">
+                <div class="text-center lg:text-left mt-[10px]">
                   <button
                     type="submit"
                     class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
@@ -68,58 +72,57 @@ const Signup = {
           </div>
         </div>
       </section>
-        `
-    },
-    afterRender() {
-        // console.log($$(".check-error"));
-        let checkValidate = false
-        $$(".check-error").forEach((item:any, index:number) => {
-            item.onblur = () => {
-                if(item.value) {
-                    $$(".error-input")[index].innerHTML = ""
-                    checkValidate = true
-                }else{
-                    $$(".error-input")[index].innerHTML = "Giá trị chưa được nhập";
-                    checkValidate = false
-                }
-            }            
-        });
-        
-        $$("#btnSubmit").addEventListener('click', function(e:any) {
-            e.preventDefault()
-            $$(".check-error").forEach((item:any, index:any) => {                
-                if(item.value.trim() === "" || item.value == null) {
-                    $$(".error-input")[index].innerHTML = "Giá trị chưa được nhập"
-                    checkValidate = false
-                }else{
-                    $$(".error-input")[index].innerHTML = "";
-                    checkValidate = true
-                }
-            })
-        })
+        `;
+  },
+  afterRender() {
+    // console.log($$(".check-error"));
+    let checkValidate = false;
+    $$(".check-error").forEach((item: any, index: number) => {
+      item.onblur = () => {
+        if (item.value) {
+          $$(".error-input")[index].innerHTML = "";
+          checkValidate = true;
+        } else {
+          $$(".error-input")[index].innerHTML = "Giá trị chưa được nhập";
+          checkValidate = false;
+        }
+      };
+    });
 
-        $$("#btnSubmit").addEventListener("click", async function(e:any) {
-            e.preventDefault()
+    $$("#btnSubmit").addEventListener("click", function (e: any) {
+      e.preventDefault();
+      $$(".check-error").forEach((item: any, index: any) => {
+        if (item.value.trim() === "" || item.value == null) {
+          $$(".error-input")[index].innerHTML = "Giá trị chưa được nhập";
+          checkValidate = false;
+        } else {
+          $$(".error-input")[index].innerHTML = "";
+          checkValidate = true;
+        }
+      });
+    });
 
-            if(checkValidate){
-                const user = {
-                    name:$$("#name").value,
-                    email:$$("#email").value,
-                    password:$$("#password").value,
-                    role:0
-                }
-                // console.log(user);
-                const result = await signup(user)
-                if(result){
-                    confirm("Đăng ký thành công")
-                    setTimeout(function() {
-                      location.href = "/signin"
-                    },3000)
-                }
-            }          
-        })
+    $$("#btnSubmit").addEventListener("click", async function (e: any) {
+      e.preventDefault();
 
-    }
-}
+      if (checkValidate) {
+        const user = {
+          name: $$("#name").value,
+          email: $$("#email").value,
+          password: $$("#password").value,
+          role: 0,
+        };
+        // console.log(user);
+        const result = await signup(user);
+        if (result) {
+          confirm("Đăng ký thành công");
+          setTimeout(function () {
+            location.href = "/#/signin";
+          }, 3000);
+        }
+      }
+    });
+  },
+};
 
-export default Signup
+export default Signup;
