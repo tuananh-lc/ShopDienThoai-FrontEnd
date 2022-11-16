@@ -1,4 +1,4 @@
-import { ProductsGet, UpdateProducts } from "../../../api/products"
+import { ProductsGet, ProductsGetOne, UpdateProducts } from "../../../api/products"
 import HeaderAdmin from "../../../components/Header/Admin"
 import Sidebar from "../../../components/Sidebar/slibarAdmin"
 import { $$ } from "../../utilities/utiliti"
@@ -10,7 +10,7 @@ const updateProducts = {
     async render(id: any) {
         // console.log(typeof id);
 
-        const ProductData = await ProductsGet(id)
+        const ProductData = await ProductsGetOne(id)
         const product: ListProducts = ProductData.data
         console.log(product);
         const categoryData = await CategoryGetAll()

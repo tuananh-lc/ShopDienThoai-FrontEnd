@@ -1,5 +1,5 @@
-import { search } from "../../api/search";
-import Signin from "../../pages/signin";
+
+
 import { $$, reRender } from "../../pages/utilities/utiliti";
 
 const HeaderUser = {
@@ -11,11 +11,11 @@ const HeaderUser = {
 
     let checkUser;
     if (user?.user.role == 1) {
-      checkUser = `
+      checkUser = /*html*/`
         <div
         class="relative hidden md:block transition ease-in-out delay-150 bg-[#ffffff3d] leading-[50px] px-[20px] rounded-lg"
         >
-          <a href="/#/admin">
+          <a href="/#/admin/products">
                 <i class="fa-solid fa-user-tie text-[18px] text-[#fff]"></i>
                 
                 <span class="capitalize text-[13px] text-[#fff]">${user.user.name}</span>
@@ -25,11 +25,11 @@ const HeaderUser = {
     `;
     }
     if (user?.user.role == 0) {
-      checkUser = `
+      checkUser = /*html*/`
         <div
         class="relative hidden md:block transition ease-in-out delay-150 bg-[#ffffff3d] leading-[50px] px-[20px] rounded-lg"
         >
-          <a href="/#/personal">
+          <a href="/">
                 <i class="fa-solid fa-user-tie text-[18px] text-[#fff]"></i>
                 
                 <span class="capitalize text-[13px] text-[#fff]">${user.user.name}</span>
@@ -53,7 +53,7 @@ const HeaderUser = {
     `;
     }
 
-    return `
+    return /*html*/`
                 <header class="bg-red-600 w-full fixed top-0 left-0 z-50" id="headuser">
                 <section
                 class="max-w-[1240px] m-auto py-[15px] md:px-[0px] px-[15px] flex justify-between items-center"
@@ -86,7 +86,7 @@ const HeaderUser = {
                     <div class="relative w-full flex items-center justify-between">
                         <input id="voice-search" class="inputSelect w-full caret-red-500 border-white h-[40px] outline-0 pl-[20px] text-[#666] text-[14px] last:bg-red-500" placeholder="Search...">
                         <div class="disabled">
-                          <i class="fa-solid fa-spinner animate-spin hidden" id="loading"></i>
+                          
                         </div>
                         <div>
                           <i class="fa-solid fa-circle-xmark text-[#777] font-thin cursor-pointer hidden" id="exitValueSearch"></i>

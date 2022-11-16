@@ -4,7 +4,6 @@ import "./style.css";
 import homeProducts from "./pages/admin/products/homeProducts";
 import createProducts from "./pages/admin/products/createProducts";
 import updateProducts from "./pages/admin/products/updateProducts";
-import dashboard from "./pages/admin/dashboard/dashboard";
 import Signin from "./pages/signin";
 import Signup from "./pages/signup";
 import homePage from "./pages/home";
@@ -41,7 +40,6 @@ router.on({
   },
   "/cartproducts": () => print(cartProducts),
   //Admin
-  "/admin/": () => print(dashboard),
   "/admin/products": () => {
     print(homeProducts);
   },

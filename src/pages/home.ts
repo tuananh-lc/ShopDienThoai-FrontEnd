@@ -1,4 +1,4 @@
-import { result } from "lodash";
+
 import { CategoryGetAll, CategoryGetOne } from "../api/categorys";
 import { ProductsGetAll } from "../api/products";
 import { search } from "../api/search";
@@ -16,7 +16,7 @@ const homePage = {
     const products: ListProducts[] = ProductsData.data;
     // console.log(categorys);
 
-    return `
+    return /*html*/`
          ${HeaderUser.render()}
          <section class="md:flex md:justify-between md:items-start max-w-[1240px] m-auto md:mt-[100px] mt-[80px]">
             <div class="hidden md:block px-[20px] capitalize  shadow-[#333]-500/50 shadow-2xl max-w-[250px] w-full h-[384px]">
@@ -36,35 +36,12 @@ const homePage = {
                 </ul>
             </div>
             <div class="w-full md:ml-[20px]">        
-                <div id="controls-carousel" class="relative" data-carousel="static">
-                <!-- Carousel wrapper -->
+             
                 <div class="overflow-hidden relative h-56 md:rounded-lg md:h-96">
-                    <!-- Item 1 -->
-                    <div class="duration-700 ease-in-out absolute inset-0 transition-all transform -translate-x-full z-10" data-carousel-item="">
+                   
+                  
                     <img src="https://cdn2.cellphones.com.vn/690x300/https://dashboard.cellphones.com.vn/storage/poco%20f4.png" class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2" alt="...">
-                    </div>
-                    <!-- Item 2 -->
-                    <img src="https://cdn2.cellphones.com.vn/690x300/https://dashboard.cellphones.com.vn/storage/khai-truong-mien-nam.png" class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2" alt="...">
-                    <div class="duration-700 ease-in-out absolute inset-0 transition-all transform translate-x-0 z-20" data-carousel-item="active">
-                    </div>
-                    <!-- Item 3 -->
-                    <div class="duration-700 ease-in-out absolute inset-0 transition-all transform translate-x-full z-10" data-carousel-item="">
-                    <img src="https://cdn2.cellphones.com.vn/690x300/https://dashboard.cellphones.com.vn/storage/CPS_690x300_19July22.jpg" class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2" alt="...">
-                    </div>
-                </div>
-                <!-- Slider controls -->
-                <button type="button" class="flex absolute top-0 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none" data-carousel-prev="">
-                    <span class="inline-flex justify-center items-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                        <svg aria-hidden="true" class="w-6 h-6 text-white dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                        <span class="sr-only">Previous</span>
-                    </span>
-                </button>
-                <button type="button" class="flex absolute top-0 right-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none" data-carousel-next="">
-                    <span class="inline-flex justify-center items-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                        <svg aria-hidden="true" class="w-6 h-6 text-white dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        <span class="sr-only">Next</span>
-                    </span>
-                </button>
+                    
                 </div>
 
             </div>
@@ -75,7 +52,7 @@ const homePage = {
                 <div class="max-w-2xl mx-auto py-7 px-4 sm:py-14 sm:px-6 lg:max-w-7xl lg:px-8">
                 <h2 class="uppercase font-bold text-[20px] md:text-[25px] text-[#444]">sản phẩm nổi bật</h2>
             
-                <div class="grid grid-cols-2 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 mt-[15px]" id="showProducts">
+                <div class="grid grid-cols-2 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-7 mt-[15px]" id="showProducts">
                     
                     ${products
                       .map((product: any) => {
@@ -221,17 +198,17 @@ const homePage = {
     });
 
     $$("#voice-search").addEventListener("keyup", async function () {
-      $$("#loading").classList.remove("hidden");
-      $$("#exitValueSearch").classList.add("hidden");
+      
+   
 
-      setTimeout(async function () {
-        $$("#loading").classList.add("hidden");
+      
+     
         const searchValue = $$("#voice-search").value;
         console.log(searchValue);
 
         if (searchValue.trim()) {
           const { data } = await search(searchValue.trim());
-          $$("#exitValueSearch").classList.remove("hidden");
+         
 
           // console.log("search", data);
           if (data) {
@@ -315,7 +292,7 @@ const homePage = {
         } else {
           reRender(homePage, "#app");
         }
-      }, 2000);
+      
     });
 
     $$("#exitValueSearch").addEventListener("click", function () {

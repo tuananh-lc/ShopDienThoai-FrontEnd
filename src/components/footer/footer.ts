@@ -1,6 +1,6 @@
 const Foodter = {
     render() {
-        return`
+        return /*html*/`
             <footer class="shadow-2xl shadow-[#434343] bg-[#f8f8f8] py-[50px] hidden md:block">
             <section
             class="max-w-[1240px] w-full m-auto flex justify-start items-start"

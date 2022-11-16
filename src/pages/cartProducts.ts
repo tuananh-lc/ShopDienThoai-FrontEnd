@@ -1,6 +1,6 @@
 import Foodter from "../components/footer/footer";
 import HeaderUser from "../components/Header/User";
-import { $$, reRender } from "./utilities/utiliti";
+
 
 const cartProducts = {
   render() {
@@ -127,48 +127,11 @@ const cartProducts = {
         `;
   },
   afterRender() {
-    let listCart = localStorage.getItem("cart")
-      ? JSON.parse(localStorage.getItem("cart"))
-      : null;
 
-    if (listCart.length == 1) {
-      $$("#closeCart").addEventListener("click", function () {
-        if (confirm("bạn chắc muốn xóa")) {
-          localStorage.removeItem("cart");
-          reRender(cartProducts, "#app");
-        }
-      });
-      console.log("removes");
-    } else {
-      console.log("remove 1");
-      $$("#closeCart").forEach((btn: any) => {
-        btn.addEventListener("click", function () {
-          const idBtn = this.getAttribute("data-id");
+    
 
-          let listCart = localStorage.getItem("cart")
-            ? JSON.parse(localStorage.getItem("cart"))
-            : null;
-          const Cart = listCart.filter((user: any) => user._id !== idBtn);
-
-          if (confirm("bạn chắc muốn xóa")) {
-            localStorage.setItem("cart", JSON.stringify(Cart));
-            reRender(cartProducts, "#app");
-          }
-        });
-      });
-    }
-
-    // $$("#amount").forEach((btn:any) => {
-    //     btn.addEventListener('change', function() {
-    //         const soluong = parseInt(this.value)
-    //         console.log(sale * soluong);
-
-    //         const result = $$("#total").value + this.value
-    //         console.log(result);
-
-    //     })
-    // })
-  },
+    
+  }
 };
 
 export default cartProducts;

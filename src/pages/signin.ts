@@ -3,7 +3,7 @@ import { $$ } from "./utilities/utiliti";
 
 const Signin = {
   render() {
-    return `
+    return /*html*/`
         <section class="h-screen">
         <div class="px-6 h-full text-gray-800">
           <div
@@ -176,7 +176,7 @@ const Signin = {
         } else {
           confirm("hello admin");
           setTimeout(function () {
-            location.href = "/#/admin";
+            location.href = "/admin/products";
           }, 1000);
         }
       }

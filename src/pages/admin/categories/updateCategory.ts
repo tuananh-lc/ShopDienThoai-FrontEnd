@@ -11,7 +11,7 @@ const UpdateCategories = {
         const category: ICategory = categoryData.data
         console.log(category);
 
-        return `
+        return /*html*/`
             ${HeaderAdmin.render()}
             <div class="flex justify-between px-[30px] mt-[100px]">
             ${Sidebar.render()}

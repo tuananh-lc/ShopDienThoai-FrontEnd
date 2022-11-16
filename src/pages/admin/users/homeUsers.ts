@@ -17,6 +17,7 @@ const HomeUsers = {
     } else {
       location.href = "/#/";
     }
+
     return /*html*/ `
             ${HeaderAdmin.render()}
             <div class="flex justify-between px-[30px] mt-[100px]">
@@ -36,7 +37,7 @@ const HomeUsers = {
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="text-center py-3 px-6">
-                                    @@
+                                    ID
                                 </th>
                                 <th scope="col" class="py-3 px-6">
                                     User Name

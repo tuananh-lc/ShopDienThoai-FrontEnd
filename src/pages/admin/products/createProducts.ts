@@ -145,7 +145,6 @@ const createProducts = {
             const cate = $$("#selectCate").value
 
             const product = {
-                // _id:Math.round(Math.random() * 696969),
                 name:$$("#name").value,
                 price:parseInt(price),
                 sale:parseInt(sale),

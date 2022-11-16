@@ -31,16 +31,17 @@ const homeProducts = {
       )
       .join("");
 
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      if (user.user.role !== 1) {
+ 
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user) {
+        if (user.user.role !== 1) {
+          location.href = "/#/";
+        }
+      } else {
         location.href = "/#/";
       }
-    } else {
-      location.href = "/#/";
-    }
-
-    return `
+  
+    return /*html*/`
             ${HeaderAdmin.render()}
             
             <div class="flex justify-between px-[30px] mt-[100px]">
@@ -53,7 +54,7 @@ const homeProducts = {
                         <h2 class="mb-[20px] text-[20px] text-colorText capitalize font-semibold">
                             danh sách sản phẩm
                         </h2>
-                        <div class="flex justify-between items-center w-[490px] w-[100%]">
+                        <div class="flex justify-between items-center">
                             <div class="mr-[10px]"><h3 class="capitalize text-[18px] font-semibold text-colorText">Bộ lọc</h3></div>
                             <div>
                                 <h3 class="mb-[10px] capitalize text-[13px] leading-[19px] font-medium text-colorText">danh mục sản phẩm</h3>
@@ -75,7 +76,7 @@ const homeProducts = {
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="py-3 px-6">
-                                    @@
+                                    ID
                                 </th>
                                 <th scope="col" class="py-3 px-6">
                                     Product name
@@ -101,7 +102,7 @@ const homeProducts = {
                             
                         ${products
                           .map(
-                            (item, index) => `
+                            (item, index) => /*html*/`
                                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                                     <th scope="row" class="text-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         ${index + 1} 
@@ -183,7 +184,7 @@ const homeProducts = {
       btn.addEventListener("click", async function () {
         const btnId = this.getAttribute("data-id");
         parseInt(btnId);
-        confirm("Bạn chắc có muốn xóa bản phẩm này?");
+        if(confirm("Bạn chắc có muốn xóa bản phẩm này?"));
         const result = await RemoveProducts(btnId);
         if (result) {
           reRender(homeProducts, "#app");
@@ -231,7 +232,7 @@ const homeProducts = {
       );
       const result = htmls
         .map(
-          (item, index) => `
+          (item, index) => /*html*/`
         <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
         <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             ${index + 1}
@@ -256,9 +257,8 @@ const homeProducts = {
             </button>
         </td>
         <td class="py-4 px-6 flex justify-between items-center leading-[190px]">
-            <a href="/updateproducts/${
-              item._id
-            }" class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
+            <a href="/#/admin/products/${
+              item._id}/updateproducts" class="text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">
                 <i title="edit" class="fa-solid fa-pen-to-square"></i>
             </a>
             <a href="/products/id" class="mx-[10px] text-[15px] font-medium hover:text-blue-600 dark:text-blue-500 hover:underline">

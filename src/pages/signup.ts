@@ -3,7 +3,7 @@ import { $$ } from "./utilities/utiliti";
 
 const Signup = {
   render() {
-    return `
+    return /*html*/`
         <section class="h-screen">
         <div class="px-6 h-full text-gray-800">
           <div

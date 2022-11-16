@@ -6,7 +6,7 @@ import { ListProducts } from "../Interface/IProducts";
 import { $$, reRender } from "./utilities/utiliti";
 import { AddressGetOne, AddressGetAll } from "../api/address";
 import { IAddress } from "../Interface/IAddress";
-import { findIndex } from "lodash";
+
 
 const DetailProducts = {
   async render(id: string) {
@@ -14,14 +14,7 @@ const DetailProducts = {
     const product: ListProducts = productsData.data;
     console.log(product);
 
-    const addressData = await AddressGetAll();
-    const address: IAddress[] = addressData.data;
-    const htmladdress = address.map(
-      (item) => `
-              <option value="${item._id}">${item.name}</option>
-        `
-    );
-    // console.log(address);
+   
 
     const idCategory = product.categoryId;
     // console.log(idCategory);
@@ -139,24 +132,7 @@ const DetailProducts = {
                         </div>
                         </div>
                         <!--  -->
-                        <div class="md:max-w-[400px] w-full px-[20px] mt-[20px]">
-                        <select id="addressdetail"  name="addressdetail" class="w-full capitalize py-[10px] pl-[20px] rounded-lg">
-                            ${htmladdress}
-                        </select>
-
-                        <div class="mt-[10px]">
-                            <h3 class="capitalize text-[#777] text-[16px] font-medium">
-                            có những cửa hàng
-                            </h3>
-
-                            <div class="border-[1px] border-[#777] rounded-lg mt-[5px] px-[5px] pb-[10px]">
-                                <div id="showAddress" class="">
-
-                                </div>
-                            </div>
-                            
-                        </div>
-                        </div>
+                        
                     </div>
                     </section>
                     <!--san pham cung loai  -->
@@ -297,65 +273,9 @@ const DetailProducts = {
       console.log(newCart, "localstorage");
     });
 
-    const showAddress = $$("#showAddress");
 
-    $$("#addressdetail")?.addEventListener("click", async function () {
-      const idData = this.value;
-      const resultData = await AddressGetOne(idData);
-      const htmlsaddressdetail = resultData.data.detailAdd;
-      console.log(htmlsaddressdetail);
 
-      const result = htmlsaddressdetail
-        .map(
-          (item: any) => /*html*/ `
-               
-               <div
-                   class="mt-[10px] flex items-center p-[20px] md:p-[5px] md:justify-between"
-               >
-                   <a
-                   href="#!"
-                   class="hover:underline text-red-600 inline-block text-[14px] text-center"
-                   ><i class="fa-solid fa-phone"></i> ${item.phoneNumber}</a
-                   >
-                   <span class="text-[13px] ml-[5px] max-w-[225px]"
-                   > ${item.name}
-                   </span>
-               </div>
-              
-             
-               `
-        )
-        .join("");
-      showAddress.innerHTML = result;
-    });
-
-    const idData = $$("#addressdetail").value;
-    const resultData = await AddressGetOne(idData);
-    const htmlsaddressdetail = resultData.data.detailAdd;
-    console.log(htmlsaddressdetail);
-
-    const result = htmlsaddressdetail
-      .map(
-        (item: any) => /*html*/ `
-               
-               <div
-                   class="mt-[10px] flex items-center p-[20px] md:p-[5px] md:justify-between"
-               >
-                   <a
-                   href="#!"
-                   class="hover:underline text-red-600 inline-block text-[14px] text-center"
-                   ><i class="fa-solid fa-phone"></i> ${item.phoneNumber}</a
-                   >
-                   <span class="text-[13px] ml-[5px] max-w-[225px]"
-                   > ${item.name}
-                   </span>
-               </div>
-              
-             
-               `
-      )
-      .join("");
-    showAddress.innerHTML = result;
+    
 
     $$("#btn-blockDesc").addEventListener("click", function () {
       $$("#descLong").classList.remove("hidden");
